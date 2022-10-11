@@ -8,7 +8,7 @@ ID 				[a-zA-Z]([a-zA-Z]|[0-9]|"$"|"_")*
 INTLIT          [0-9]("_"*[0-9])*
 REALLIT         {INTLIT}*("."{INTLIT}*)?((e|E)("+"|"-")?{INTLIT}+)?
 STRLIT          "\""([^(\n|\r|\")]|\\f|\\n|\\r|\\t|\\\|\\)*"\""
-RESERVED        ("++"|"--"|null|Integer|System)
+RESERVED        ("++"|"--"|null|Integer|System|abstract|continue|for|new|switch|assert|default|package|synchronized|do|goto|private|this|break|implements|protected|throw|byte|import|throws|case|enum|instanceof|transient|catch|extends|short|try|char|final|interface|finally|long|strictfp|volatile|const|float|native|super)
 SPACE           (" "|"\t")
 NEWLINE         ("\n"|"\r\n"|"\r")
 
@@ -64,7 +64,7 @@ NEWLINE         ("\n"|"\r\n"|"\r")
 {STRLIT}            {printf("STRLIT(%s)\n",yytext); col+=yyleng;}
 {RESERVED}          {printf("RESERVED(%s)\n",yytext); col+=yyleng;}
 
-"\"".*{NEWLINE}      {printf("Line <%d>, col <%d>:  unterminated string literal\n", line,col); col+=yyleng;}
+"\"".*({NEWLINE}||<<EOF>>)     {printf("Line <%d>, col <%d>:  unterminated string literal\n", line,col); col+=yyleng;}
 "\\"[^(f|n|r|t|\)]   {printf("Line <%d>, col <%d>: invalid escape sequence (<%s>)\n", line,col,yytext); col+=yyleng;}
 .                    {printf("Line <%d>, col <%d>: illegal character (<%s>)\n", line,col,yytext); col+=yyleng;}
 %%
