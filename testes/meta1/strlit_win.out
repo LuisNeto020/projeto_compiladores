@@ -1,0 +1,4 @@
+Line 1, col 1: unterminated string literal
+Line 2, col 23: invalid escape sequence (\)
+Line 2, col 2: unterminated string literal
+Line 3, col 4: invalid escape sequence (\g)

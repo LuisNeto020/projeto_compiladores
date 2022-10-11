@@ -1,0 +1,99 @@
+Line 1, col 2: invalid escape sequence (\)
+Line 1, col 1: unterminated string literal
+Line 2, col 2: invalid escape sequence (\)
+Line 2, col 1: unterminated string literal
+Line 3, col 1: unterminated string literal
+Line 6, col 1: illegal character (î)
+STRLIT("n")
+Line 7, col 1: unterminated string literal
+Line 8, col 1: illegal character (î)
+Line 9, col 2: invalid escape sequence (\î)
+Line 9, col 1: unterminated string literal
+ID(nn)
+Line 11, col 3: illegal character (\)
+Line 12, col 1: illegal character (\)
+Line 12, col 2: illegal character (î)
+ID(n)
+Line 12, col 4: illegal character (\)
+Line 12, col 5: illegal character (\)
+Line 13, col 1: unterminated string literal
+STRLIT("")
+Line 16, col 2: invalid escape sequence (\)
+Line 16, col 1: unterminated string literal
+Line 18, col 1: illegal character (\)
+Line 18, col 2: illegal character (\)
+Line 19, col 1: unterminated string literal
+Line 20, col 1: illegal character (î)
+Line 20, col 2: illegal character (î)
+Line 20, col 3: unterminated string literal
+Line 22, col 1: illegal character (î)
+Line 22, col 2: illegal character (î)
+ID(nnn)
+Line 22, col 6: unterminated string literal
+Line 23, col 1: unterminated string literal
+ID(nn)
+Line 25, col 3: illegal character (\)
+Line 25, col 4: unterminated string literal
+Line 26, col 1: illegal character (\)
+ID(n)
+Line 32, col 1: illegal character (\)
+ID(n)
+Line 32, col 3: illegal character (î)
+Line 33, col 1: illegal character (î)
+Line 33, col 2: illegal character (î)
+Line 33, col 3: illegal character (\)
+ID(n)
+Line 33, col 5: illegal character (\)
+Line 34, col 1: illegal character (î)
+Line 34, col 2: illegal character (î)
+Line 34, col 3: illegal character (\)
+Line 34, col 5: invalid escape sequence (\)
+Line 34, col 4: unterminated string literal
+Line 36, col 1: illegal character (î)
+Line 36, col 2: illegal character (î)
+ID(n)
+Line 37, col 1: unterminated string literal
+Line 38, col 1: illegal character (\)
+Line 38, col 2: illegal character (\)
+Line 38, col 3: illegal character (î)
+STRLIT("î")
+Line 39, col 1: illegal character (\)
+Line 41, col 1: illegal character (î)
+Line 41, col 2: illegal character (î)
+Line 41, col 3: illegal character (î)
+Line 41, col 4: illegal character (\)
+Line 41, col 5: illegal character (\)
+Line 41, col 6: unterminated string literal
+STRLIT("")
+ID(n)
+Line 45, col 1: illegal character (î)
+ID(nn)
+ID(n)
+ID(nn)
+Line 48, col 1: illegal character (\)
+Line 48, col 2: illegal character (\)
+ID(n)
+Line 48, col 4: illegal character (\)
+Line 48, col 5: illegal character (î)
+STRLIT("\"\n")
+Line 48, col 12: unterminated string literal
+Line 49, col 1: illegal character (î)
+ID(n)
+Line 49, col 3: unterminated string literal
+Line 50, col 1: illegal character (î)
+Line 51, col 1: unterminated string literal
+Line 52, col 1: illegal character (\)
+STRLIT("î")
+ID(n)
+STRLIT("nn")
+ID(nn)
+Line 56, col 4: invalid escape sequence (\)
+Line 56, col 3: unterminated string literal
+Line 57, col 1: illegal character (\)
+Line 59, col 2: invalid escape sequence (\î)
+Line 59, col 1: unterminated string literal
+ID(n)
+Line 61, col 3: invalid escape sequence (\)
+Line 62, col 2: invalid escape sequence (\)
+Line 62, col 1: unterminated string literal
+Line 63, col 1: unterminated string literal

@@ -1,0 +1,350 @@
+MOD
+NE
+NOT
+OR
+PLUS
+RBRACE
+RPAR
+RSQ
+SEMICOLON
+ARROW
+LSHIFT
+RSHIFT
+XOR
+BOOL
+CLASS
+DOTLENGTH
+ID(Xlength)
+DOUBLE
+ELSE
+IF
+INT
+PRINT
+ID(SystemXout)
+Line 25, col 11: illegal character (.)
+ID(print)
+RESERVED(System)
+Line 26, col 7: illegal character (.)
+ID(outXprint)
+ID(SystemXoutXprint)
+PARSEINT
+ID(IntegerXparseInt)
+PUBLIC
+RETURN
+STATIC
+STRING
+VOID
+WHILE
+RESERVED(++)
+RESERVED(--)
+RESERVED(null)
+RESERVED(Integer)
+RESERVED(System)
+RESERVED(abstract)
+RESERVED(assert)
+RESERVED(break)
+RESERVED(byte)
+RESERVED(case)
+RESERVED(catch)
+RESERVED(char)
+RESERVED(const)
+RESERVED(default)
+RESERVED(do)
+RESERVED(enum)
+RESERVED(extends)
+RESERVED(final)
+RESERVED(finally)
+RESERVED(float)
+RESERVED(for)
+RESERVED(goto)
+RESERVED(implements)
+RESERVED(import)
+RESERVED(instanceof)
+RESERVED(interface)
+RESERVED(long)
+RESERVED(native)
+RESERVED(new)
+RESERVED(package)
+RESERVED(private)
+RESERVED(protected)
+PUBLIC
+RESERVED(short)
+RESERVED(strictfp)
+RESERVED(super)
+RESERVED(switch)
+RESERVED(synchronized)
+RESERVED(this)
+RESERVED(throw)
+RESERVED(throws)
+RESERVED(transient)
+RESERVED(try)
+RESERVED(volatile)
+RESERVED(continue)
+BOOLLIT(true)
+BOOLLIT(false)
+ID(tru)
+ID(fals)
+ID(truee)
+ID(falsee)
+ID(sa9dyas9_ya9sydas$0as_0)
+INTLIT(9)
+ID(dyas9_ya9sydas$0as_0)
+INTLIT(0)
+INTLIT(1039123_897123___8931271)
+ID(_1039123_897123___8931271)
+ID(booleane)
+ID(classe)
+DOTLENGTH
+ID(e)
+ID(Xlengthe)
+ID(doublee)
+ID(elsee)
+ID(ife)
+ID(inte)
+PRINT
+ID(e)
+ID(SystemXout)
+Line 101, col 11: illegal character (.)
+ID(printe)
+RESERVED(System)
+Line 102, col 7: illegal character (.)
+ID(outXprinte)
+ID(SystemXoutXprinte)
+PARSEINT
+ID(e)
+ID(IntegerXparseInte)
+ID(publice)
+ID(returne)
+ID(statice)
+ID(Stringe)
+ID(voide)
+ID(whilee)
+RESERVED(++)
+ID(e)
+RESERVED(--)
+ID(e)
+ID(nulle)
+ID(Integere)
+ID(Systeme)
+ID(abstracte)
+ID(asserte)
+ID(breake)
+RESERVED(byte)
+Line 120, col 5: illegal character (\)
+RESERVED(case)
+Line 121, col 5: illegal character (\)
+RESERVED(catch)
+Line 122, col 6: illegal character (\)
+RESERVED(char)
+Line 123, col 5: illegal character (\)
+RESERVED(const)
+Line 124, col 6: illegal character (\)
+RESERVED(default)
+Line 125, col 8: illegal character (\)
+RESERVED(do)
+Line 126, col 3: illegal character (\)
+RESERVED(enum)
+Line 127, col 5: illegal character (\)
+RESERVED(extends)
+Line 128, col 8: illegal character (.)
+RESERVED(final)
+Line 129, col 6: illegal character (.)
+RESERVED(finally)
+Line 130, col 8: illegal character (.)
+RESERVED(float)
+Line 131, col 6: illegal character (.)
+RESERVED(for)
+Line 133, col 4: illegal character (.)
+RESERVED(goto)
+Line 134, col 5: illegal character (.)
+RESERVED(implements)
+COMMA
+RESERVED(import)
+COMMA
+RESERVED(instanceof)
+COMMA
+RESERVED(interface)
+COMMA
+RESERVED(long)
+COMMA
+RESERVED(native)
+COMMA
+RESERVED(new)
+COMMA
+ID(packagee)
+ID(privatee)
+ID(protectede)
+ID(publice)
+ID(shorte)
+ID(strictfpe)
+ID(supere)
+ID(switche)
+ID(esynchronizede)
+ID(thise)
+ID(throwe)
+RESERVED(throws)
+ID(transiente)
+ID(tryr)
+ID(volatilee)
+RESERVED(continue)
+Line 159, col 9: illegal character (\)
+AND
+MOD
+Line 161, col 5: illegal character (&)
+MOD
+AND
+OR
+Line 161, col 15: illegal character (&)
+Line 161, col 16: illegal character (|)
+AND
+Line 161, col 20: illegal character (&)
+MOD
+MOD
+MOD
+OR
+Line 161, col 28: illegal character (|)
+ASSIGN
+EQ
+ASSIGN
+ID(e)
+ID(fefa)
+STAR
+STAR
+STAR
+STAR
+STAR
+STAR
+MOD
+STAR
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+COMMA
+DIV
+Line 170, col 5: illegal character (&)
+Line 172, col 1: illegal character (&)
+INTLIT(6)
+INTLIT(6)
+INTLIT(66)
+INTLIT(66)
+INTLIT(7)
+AND
+AND
+INTLIT(6)
+Line 172, col 25: illegal character (&)
+Line 172, col 27: illegal character (&)
+DIV
+INTLIT(6)
+Line 172, col 31: illegal character (&)
+Line 172, col 34: illegal character (&)
+EQ
+ASSIGN
+EQ
+INTLIT(0)
+EQ
+EQ
+ASSIGN
+ASSIGN
+ASSIGN
+ASSIGN
+ASSIGN
+ASSIGN
+ASSIGN
+INTLIT(0)
+INTLIT(0)
+EQ
+ASSIGN
+INTLIT(0)
+INTLIT(0)
+LE
+EQ
+ASSIGN
+GT
+GE
+GE
+GT
+ASSIGN
+GE
+GE
+ASSIGN
+GE
+RSHIFT
+LT
+GT
+GT
+LT
+LT
+INTLIT(0)
+ASSIGN
+LE
+LT
+INTLIT(0)
+ASSIGN
+LE
+LBRACE
+LBRACE
+RBRACE
+LBRACE
+LSQ
+RSQ
+LSQ
+RSQ
+LBRACE
+RBRACE
+LPAR
+RPAR
+LPAR
+RPAR
+DIV
+LBRACE
+RBRACE
+ID($)
+RSQ
+RPAR
+LPAR
+RPAR
+RESERVED(--)
+MINUS
+RESERVED(--)
+MINUS
+MINUS
+MINUS
+MINUS
+MINUS
+DIV
+ID(aso)
+ID(dijaj)
+STAR
+STAR
+DIV
+STRLIT("sui ghasuidhasui dhiash ")
+STRLIT("")
+ID(sapdj)
+ID(a)
+Line 190, col 29: invalid escape sequence (\)
+Line 190, col 10: unterminated string literal
+Line 191, col 23: invalid escape sequence (\U)
+Line 192, col 18: invalid escape sequence (\)
+Line 192, col 1: unterminated string literal
+Line 193, col 1: unterminated string literal
+STRLIT("aspj dpas !")
+STRLIT("")
+

@@ -1,0 +1,19 @@
+STRLIT("Esta e uma string valida")
+Line 2, col 1: unterminated string literal
+CLASS
+ID(Main)
+LBRACE
+Line 4, col 2: unterminated string literal
+PUBLIC
+STATIC
+INT
+ID(soma)
+LPAR
+INT
+ID(n)
+RPAR
+LBRACE
+Line 6, col 2: illegal character (?)
+Line 6, col 3: illegal character (#)
+Line 9, col 1: unterminated string literal
+Line 10, col 1: unterminated comment
