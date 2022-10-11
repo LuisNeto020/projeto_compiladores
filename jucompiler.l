@@ -17,7 +17,7 @@ SPACE       (" "|"\t")
 NEWLINE             ("\n"|"\r\n"|"\r")
 LINE_COMMENT        "//".*
 
-%X                COMMENT 
+%X                <COMMENT> 
 
 %%
 
