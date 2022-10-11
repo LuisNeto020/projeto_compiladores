@@ -1,12 +1,27 @@
+%{
+    
+
+    int commentBegin[2];
+%}
+
 ID 				[a-zA-Z]([a-zA-Z]|[0-9]|"$"|"_")*
-INTLIT          [0-9]("_"*[0-9])*
-REALLIT         {INTLIT}*("."{INTLIT}*)?((e|E)("+"|"-")?{INTLIT}+)?
+INTLIT          (0|[1-9]("_"*[0-9])*)
+REALLIT         ([0-9]("_"*[0-9])*)*("."([1-9]("_"*[0-9])*)*)?((e|E)("+"|"-")?([1-9]("_"*[0-9])*)+)?
 STRLIT          "\""([^(\n|\r|\")]|\\f|\\n|\\r|\\t|\\\|\\)*"\""
-RESERVED        ("++"|"--"|null|Integer|System)
+RESERVED        ("|+"|"--"|abstract|continue|for|new|switch|assert|default|package|synchronized|do|goto|private|this|break|implements|protected|throw|byte|import|throws|case|enum|instanceof|transient|catch|extends|short|try|char|final|interface|finally|long|strictfp|volatile|const|float|native|super|System|Integer|null)
 SPACE           (" "|"\t")
 NEWLINE         ("\n"|"\r\n"|"\r")
 
+%X              COMMENT
 %%
+"/*"                {BEGIN COMMENT;commentBegin[0]=line;commentBegin[1]=col;col+=yyleng;}
+<COMMENT>.*         {col+=yyleng;}
+<COMMENT>{NEWLINE}  {line++;col=1;}
+<COMMENT><<EOF>>    {BEGIN 0;printf("Line %i, col %i: unterminated comment\n",commentBegin[0],commentBegin[1]);}
+<COMMENT>"*/"       {BEGIN 0;col+=yyleng;}
+
+
+
 {SPACE}             ;
 {NEWLINE}           ;
 "true"|"false"      {printf("BOOLLIT\n");}
