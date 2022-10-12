@@ -1,35 +1,48 @@
 %{
 //Constantes
+    #include <stdio.h>
+	#include <stdlib.h>
+	#include <string.h>
     #define false 0;
     #define true 1;
     int col=1; 
     int line=1;
     int commentBegin[2];
+    int strlitBegin[2];
     int flag=false;
+    char *strlit;
+    int str=false;
 %}
 
-ID 				[a-zA-Z]([a-zA-Z]|[0-9]|"$"|"_")*
+ID 				([a-zA-Z]|"$"|"")([a-zA-Z]|[0-9]|"$"|"")*
 INTLIT          (0|[1-9]("_"*[0-9])*)
 REALLIT         ([0-9]("_"*[0-9])*)*("."([1-9]("_"*[0-9])*)*)?((e|E)("+"|"-")?([1-9]("_"*[0-9])*)+)?
-STRLIT          "\""([^(\n|\r|\")]|\\f|\\n|\\r|\\t|\\\|\\)*"\""
+STRLIT          ([^(\n|\r|\")]|\\f|\\n|\\r|\\t|\\\|\\)*
 RESERVED        ("++"|"--"|null|Integer|System|abstract|continue|for|new|switch|assert|default|package|synchronized|do|goto|private|this|break|implements|protected|throw|byte|import|throws|case|enum|instanceof|transient|catch|extends|short|try|char|final|interface|finally|long|strictfp|volatile|const|float|native|super)
 SPACE       (" "|"\t")
 NEWLINE             ("\n"|"\r\n"|"\r")
 LINE_COMMENT        "//".*
 
-%X                <COMMENT> 
+%X                COMMENT
+%X                STRLIT
 
 %%
 
 
 "/*"                {BEGIN COMMENT;commentBegin[0]=line;commentBegin[1]=col;col+=yyleng;}
-<COMMENT>.*[^("*/"|{NEWLINE})]         {col+=yyleng;}
+<COMMENT>.          {col+=yyleng;}
 <COMMENT>{NEWLINE}  {line++;col=1;}
 <COMMENT><<EOF>>    {BEGIN 0;printf("Line %i, col %i: unterminated comment\n",commentBegin[0],commentBegin[1]);}
 <COMMENT>"*/"       {BEGIN 0;col+=yyleng;}
 
-{LINE_COMMENT}          {col=1;}
+{LINE_COMMENT}          {col+=yyleng;}
 
+"\""                {BEGIN STRLIT;col+=yyleng;strlit=yytext;strlitBegin[0]=line;strlitBegin[1]=col;str=true}
+<STRLIT>{STRLIT}                        {col+=yyleng;}
+<STRLIT>\\(.?)                            {printf("Line %d, col %d: invalid escape sequence (%s)\n",line,col,yytext); col += yyleng;str = false;}
+<STRLIT>\n|\r|(\r\n)                    {line++; col= 1; printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]);BEGIN 0;}
+<STRLIT>"\""                              {if(flag==1 && str==1)printf("STRLIT(%s)\n",strlit);col+=yyleng;BEGIN 0;}
+<STRLIT><<EOF>>                            {printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]); col+=yyleng; BEGIN 0;}
 
 {NEWLINE}           {line+=1; col=1;}
 {SPACE}             {col+=yyleng;}
@@ -80,12 +93,11 @@ LINE_COMMENT        "//".*
 {ID}                {if(flag)printf("ID(%s)\n",yytext); col+=yyleng;}
 {INTLIT}            {if(flag)printf("INTLIT(%s)\n",yytext); col+=yyleng;}
 {REALLIT}           {if(flag)printf("REALLIT(%s)\n",yytext); col+=yyleng;}
-{STRLIT}            {if(flag)printf("STRLIT(%s)\n",yytext); col+=yyleng;}
 {RESERVED}          {if(flag)printf("RESERVED(%s)\n",yytext); col+=yyleng;}
 
-"\"".*[{NEWLINE}|<<EOF>>]     {printf("Line <%i>, col <%i>:  unterminated string literal\n", line,col); col+=yyleng;}
-"\\"[^(f|n|r|t|\)]   {printf("Line <%i>, col <%i>: invalid escape sequence (<%s>)\n", line,col,yytext); col+=yyleng;}
-.                    {printf("Line <%i>, col <%i>: illegal character (<%s>)\n", line,col,yytext); col+=yyleng;}
+
+
+.                    {printf("Line %i, col %i: illegal character (<%s>)\n", line,col,yytext); col+=yyleng;}
 
 %%
 
