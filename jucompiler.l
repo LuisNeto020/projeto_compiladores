@@ -50,8 +50,6 @@ NEWLINE         ("\n"|"\r\n"|"\r")
 <STRLIT>"\""                            {if(flag==1 && str==1)printf("STRLIT(%s)\n",strlit);col+=yyleng;BEGIN 0;}
 <STRLIT><<EOF>>                         {printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]); col+=yyleng; BEGIN 0;}
 
-{NEWLINE}           {line+=1; col=1;}
-{SPACE}             {col+=yyleng;}
 
 "true"              {if(flag)printf("BOOLLIT(TRUE)\n"); col+=yyleng;}
 "false"             {if(flag)printf("BOOLLIT(FALSE)\n"); col+=yyleng;}
@@ -98,6 +96,8 @@ NEWLINE         ("\n"|"\r\n"|"\r")
 "public"            {if(flag)printf("PUBLIC\n"); col+=yyleng;}
 "while"             {if(flag)printf("WHILE\n"); col+=yyleng;}
 {RESERVED}          {if(flag)printf("RESERVED(%s)\n",yytext); col+=yyleng;}
+{SPACE}             {col+=yyleng;}
+{NEWLINE}           {line+=1; col=1;}
 {ID}                {if(flag)printf("ID(%s)\n",yytext); col+=yyleng;}
 {INTLIT}            {if(flag)printf("INTLIT(%s)\n",yytext); col+=yyleng;}
 {REALLIT}           {if(flag)printf("REALLIT(%s)\n",yytext); col+=yyleng;}
