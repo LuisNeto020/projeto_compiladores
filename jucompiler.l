@@ -43,12 +43,12 @@ NEWLINE         ("\n"|"\r\n"|"\r")
 
 
 
-"\""                {BEGIN STRLIT;strlit=yytext;strlitBegin[0]=line;strlitBegin[1]=col;col+=yyleng;str=true}
+"\""                                    {BEGIN STRLIT;strlit=yytext;strlitBegin[0]=line;strlitBegin[1]=col;col+=yyleng;str=true}
 <STRLIT>{STRLIT}                        {col+=yyleng;}
-<STRLIT>\\(.?)                            {printf("Line %d, col %d: invalid escape sequence (%s)\n",line,col,yytext); col += yyleng;str = false;}
+<STRLIT>\\(.?)                          {printf("Line %d, col %d: invalid escape sequence (%s)\n",line,col,yytext); col += yyleng;str = false;}
 <STRLIT>\n|\r|(\r\n)                    {line++; col= 1; printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]);BEGIN 0;}
-<STRLIT>"\""                              {if(flag==1 && str==1)printf("STRLIT(%s)\n",strlit);col+=yyleng;BEGIN 0;}
-<STRLIT><<EOF>>                            {printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]); col+=yyleng; BEGIN 0;}
+<STRLIT>"\""                            {if(flag==1 && str==1)printf("STRLIT(%s)\n",strlit);col+=yyleng;BEGIN 0;}
+<STRLIT><<EOF>>                         {printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]); col+=yyleng; BEGIN 0;}
 
 {NEWLINE}           {line+=1; col=1;}
 {SPACE}             {col+=yyleng;}
@@ -97,10 +97,11 @@ NEWLINE         ("\n"|"\r\n"|"\r")
 "void"              {if(flag)printf("VOID\n"); col+=yyleng;}
 "public"            {if(flag)printf("PUBLIC\n"); col+=yyleng;}
 "while"             {if(flag)printf("WHILE\n"); col+=yyleng;}
+{RESERVED}          {if(flag)printf("RESERVED(%s)\n",yytext); col+=yyleng;}
 {ID}                {if(flag)printf("ID(%s)\n",yytext); col+=yyleng;}
 {INTLIT}            {if(flag)printf("INTLIT(%s)\n",yytext); col+=yyleng;}
 {REALLIT}           {if(flag)printf("REALLIT(%s)\n",yytext); col+=yyleng;}
-{RESERVED}          {if(flag)printf("RESERVED(%s)\n",yytext); col+=yyleng;}
+
 
 .                   {printf("Line %i, col %i: illegal character (%s)\n", line,col,yytext); col+=yyleng;}
 <<EOF>>             {col=1;exit (0);}
