@@ -24,13 +24,15 @@ STRLIT          ([^\n\r\\"]|\\n|\\f|\\r|\\\\|\\\"|\\t)*
 RESERVED        ("++"|"--"|null|Integer|System|abstract|continue|for|new|switch|assert|default|package|synchronized|do|goto|private|this|break|implements|protected|throw|byte|import|throws|case|enum|instanceof|transient|catch|extends|short|try|char|final|interface|finally|long|strictfp|volatile|const|float|native|super)
 SPACE           (" "|"\t")
 NEWLINE         ("\n"|"\r\n"|"\r")
-LINE_COMMENT        "//".*
 
-%X                COMMENT
-%X                STRLIT
+
+%X              LINE_COMMENT COMMENT  STRLIT               
 
 %%
 
+"//"                                       {BEGIN LINE_COMMENT;}
+<LINE_COMMENT>{NEWLINE}                    {line+=1,col=1,BEGIN 0;}
+<LINE_COMMENT>.                            {col+=yyleng;}
 
 "/*"                {BEGIN COMMENT;commentBegin[0]=line;commentBegin[1]=col;col+=yyleng;}
 <COMMENT>"*/"       {BEGIN 0;col+=yyleng;}
@@ -39,7 +41,7 @@ LINE_COMMENT        "//".*
 <COMMENT><<EOF>>    {printf("Line %i, col %i: unterminated comment\n",commentBegin[0],commentBegin[1]);BEGIN 0;}
 
 
-{LINE_COMMENT}          {col+=yyleng;}
+
 
 "\""                {BEGIN STRLIT;strlit=yytext;strlitBegin[0]=line;strlitBegin[1]=col;col+=yyleng;str=true}
 <STRLIT>{STRLIT}                        {col+=yyleng;}
@@ -51,7 +53,8 @@ LINE_COMMENT        "//".*
 {NEWLINE}           {line+=1; col=1;}
 {SPACE}             {col+=yyleng;}
 
-"true"|"false"      {if(flag)printf("BOOLLIT\n"); col+=yyleng;}
+"true"              {if(flag)printf("BOOLLIT(TRUE)\n"); col+=yyleng;}
+"false"             {if(flag)printf("BOOLLIT(FALSE)\n"); col+=yyleng;}
 "&&"                {if(flag)printf("AND\n"); col+=yyleng;}
 "="                 {if(flag)printf("ASSIGN\n"); col+=yyleng;}
 "*"                 {if(flag)printf("STAR\n"); col+=yyleng;}
@@ -99,7 +102,8 @@ LINE_COMMENT        "//".*
 {REALLIT}           {if(flag)printf("REALLIT(%s)\n",yytext); col+=yyleng;}
 {RESERVED}          {if(flag)printf("RESERVED(%s)\n",yytext); col+=yyleng;}
 
-.                    {printf("Line %i, col %i: illegal character (%s)\n", line,col,yytext); col+=yyleng;}
+.                   {printf("Line %i, col %i: illegal character (%s)\n", line,col,yytext); col+=yyleng;}
+<<EOF>>             {col=1;exit (0);}
 
 %%
 
