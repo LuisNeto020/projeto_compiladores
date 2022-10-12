@@ -14,19 +14,19 @@
     int str=false;
 %}
 
-ID 				(([a-zA-Z]|"$"|"_")([a-zA-Z]|[0-9]|"$"|"")*)
-INTLIT          (0|[1-9]("_"*[0-9])*)
+ID 				([a-zA-Z]|"$"|"_")+([a-zA-Z]|[0-9]|"$"|"_")*
+INTLIT          0|[1-9]("_"*[0-9])*
 REAL            ([0-9]("_"*[0-9])*)"."(([0-9]("_"*[0-9])*))?((e|E)("+"|"-")?([0-9]("_"*[0-9])*))?
 INTEXP          ([0-9]("_"*[0-9])*)((e|E)("+"|"-")?([0-9]("_"*[0-9])*))
 REALEXP         "."(([0-9]("_"*[0-9])*))((e|E)("+"|"-")?([0-9]("_"*[0-9])*))?
 REALLIT         {INTEXP}|{REAL}|{REALEXP}
 STRLIT          ([^\n\r\\"]|\\n|\\f|\\r|\\\\|\\\"|\\t)*
-RESERVED        ("++"|"--"|null|Integer|System|abstract|continue|for|new|switch|assert|default|package|synchronized|do|goto|private|this|break|implements|protected|throw|byte|import|throws|case|enum|instanceof|transient|catch|extends|short|try|char|final|interface|finally|long|strictfp|volatile|const|float|native|super)
-SPACE           (" "|"\t")
-NEWLINE         ("\n"|"\r\n"|"\r")
+RESERVED        "++"|"--"|null|Integer|System|abstract|continue|for|new|switch|assert|default|package|synchronized|do|goto|private|this|break|implements|protected|throw|byte|import|throws|case|enum|instanceof|transient|catch|extends|short|try|char|final|interface|finally|long|strictfp|volatile|const|float|native|super
+SPACE           " "|\t
+NEWLINE         \n|\r\n|\r
 
 
-%X              LINE_COMMENT COMMENT  STRLIT               
+%X              STRLIT LINE_COMMENT COMMENT               
 
 %%
 
@@ -36,14 +36,12 @@ NEWLINE         ("\n"|"\r\n"|"\r")
 
 "/*"                {BEGIN COMMENT;commentBegin[0]=line;commentBegin[1]=col;col+=yyleng;}
 <COMMENT>"*/"       {BEGIN 0;col+=yyleng;}
-<COMMENT>.          {col+=yyleng;}
 <COMMENT>{NEWLINE}  {line++;col=1;}
 <COMMENT><<EOF>>    {printf("Line %i, col %i: unterminated comment\n",commentBegin[0],commentBegin[1]);BEGIN 0;}
+<COMMENT>.          {col+=yyleng;}
 
 
-
-
-"\""                                    {BEGIN STRLIT;strlit=yytext;strlitBegin[0]=line;strlitBegin[1]=col;col+=yyleng;str=true}
+\"                                      {BEGIN STRLIT;strlit=yytext;strlitBegin[0]=line;strlitBegin[1]=col;col+=yyleng;str=true}
 <STRLIT>{STRLIT}                        {col+=yyleng;}
 <STRLIT>\\(.?)                          {printf("Line %d, col %d: invalid escape sequence (%s)\n",line,col,yytext); col += yyleng;str = false;}
 <STRLIT>\n|\r|(\r\n)                    {line++; col= 1; printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]);BEGIN 0;}
@@ -75,7 +73,7 @@ NEWLINE         ("\n"|"\r\n"|"\r")
 "}"                 {if(flag)printf("RBRACE\n");col+=yyleng;}
 ")"                 {if(flag)printf("RPAR\n"); col+=yyleng;}
 "]"                 {if(flag)printf("RSQ\n"); col+=yyleng;}
-";"                 {if(flag)printf("SEMI; ON\n"); col+=yyleng;}
+";"                 {if(flag)printf("SEMICOLON\n"); col+=yyleng;}
 "->"                {if(flag)printf("ARROW\n"); col+=yyleng;}
 "<<"                {if(flag)printf("LSHIFT\n"); col+=yyleng;}
 ">>"                {if(flag)printf("RSHIFT\n"); col+=yyleng;}
@@ -97,11 +95,11 @@ NEWLINE         ("\n"|"\r\n"|"\r")
 "while"             {if(flag)printf("WHILE\n"); col+=yyleng;}
 {RESERVED}          {if(flag)printf("RESERVED(%s)\n",yytext); col+=yyleng;}
 {SPACE}             {col+=yyleng;}
+"\f"                {col+=yyleng;}
 {NEWLINE}           {line+=1; col=1;}
 {ID}                {if(flag)printf("ID(%s)\n",yytext); col+=yyleng;}
 {INTLIT}            {if(flag)printf("INTLIT(%s)\n",yytext); col+=yyleng;}
 {REALLIT}           {if(flag)printf("REALLIT(%s)\n",yytext); col+=yyleng;}
-
 
 .                   {printf("Line %i, col %i: illegal character (%s)\n", line,col,yytext); col+=yyleng;}
 <<EOF>>             {col=1;exit (0);}
