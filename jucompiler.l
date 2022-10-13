@@ -1,4 +1,8 @@
 %{
+/*
+    Luís Neto -2020215474
+    João Moura -2020235800 
+*/        
 //Constantes
     #include <stdio.h>
 	#include <stdlib.h>
@@ -37,9 +41,8 @@ NEWLINE         \n|\r\n|\r
 "/*"                {BEGIN COMMENT;commentBegin[0]=line;commentBegin[1]=col;col+=yyleng;}
 <COMMENT>"*/"       {BEGIN 0;col+=yyleng;}
 <COMMENT>{NEWLINE}  {line++;col=1;}
-<COMMENT><<EOF>>    {printf("Line %i, col %i: unterminated comment\n",commentBegin[0],commentBegin[1]);BEGIN 0;}
 <COMMENT>.          {col+=yyleng;}
-
+<COMMENT><<EOF>>    {printf("Line %d, col %d: unterminated comment\n",commentBegin[0],commentBegin[1]);BEGIN 0;}
 
 \"                                      {BEGIN STRLIT;strlit=yytext;strlitBegin[0]=line;strlitBegin[1]=col;col+=yyleng;str=true}
 <STRLIT>{STRLIT}                        {col+=yyleng;}
@@ -49,8 +52,8 @@ NEWLINE         \n|\r\n|\r
 <STRLIT><<EOF>>                         {printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]); col+=yyleng; BEGIN 0;}
 
 
-"true"              {if(flag)printf("BOOLLIT(TRUE)\n"); col+=yyleng;}
-"false"             {if(flag)printf("BOOLLIT(FALSE)\n"); col+=yyleng;}
+"true"              {if(flag)printf("BOOLLIT(true)\n"); col+=yyleng;}
+"false"             {if(flag)printf("BOOLLIT(false)\n"); col+=yyleng;}
 "&&"                {if(flag)printf("AND\n"); col+=yyleng;}
 "="                 {if(flag)printf("ASSIGN\n"); col+=yyleng;}
 "*"                 {if(flag)printf("STAR\n"); col+=yyleng;}
@@ -101,7 +104,7 @@ NEWLINE         \n|\r\n|\r
 {INTLIT}            {if(flag)printf("INTLIT(%s)\n",yytext); col+=yyleng;}
 {REALLIT}           {if(flag)printf("REALLIT(%s)\n",yytext); col+=yyleng;}
 
-.                   {printf("Line %i, col %i: illegal character (%s)\n", line,col,yytext); col+=yyleng;}
+.                   {printf("Line %d, col %d: illegal character (%s)\n", line,col,yytext); col+=yyleng;}
 <<EOF>>             {col=1;exit (0);}
 
 %%
