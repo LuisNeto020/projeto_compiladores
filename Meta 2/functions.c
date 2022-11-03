@@ -50,3 +50,16 @@ void printTree(Node *node, int depth){
 
     free(node);
 }
+
+int countBrother(node root) {
+		int count = 0;
+		node aux;
+		aux = root;
+		while (aux != NULL) {
+			aux = aux->brother;
+			count++;
+		}
+		return count;
+	}
+
+
