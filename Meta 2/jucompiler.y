@@ -107,7 +107,7 @@ MethodHeader:	Type ID LPAR MethodHeader2 RPAR						{$$ = newNode("node_method", 
 																	aux = newNode("node_terminal", "", "Void");
 																	add_child($$, aux);
 																	addBrother(aux, newNode("node_id", $2, "Id"));
-																	Node* aux2 = newNode("node_method", "", "MethodParams");
+																	node aux2 = newNode("node_method", "", "MethodParams");
 																	addBrother(aux, aux2);
 																	add_child(aux2, $4);}
 			;
