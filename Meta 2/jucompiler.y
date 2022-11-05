@@ -75,8 +75,8 @@ FieldDecl:	PUBLIC STATIC Type ID FieldDecl2 SEMICOLON				{$$ = newNode("node_var
 																	if ($5 != NULL){
 																		aux = $5;
 																		while (aux != NULL) {
-																			Node* aux1 = newNode("node_var", "", "FieldDecl");
-																			Node* aux2 = newNode($3->node_type, $3->valor, $3->s_type);
+																			node aux1 = newNode("node_var", "", "FieldDecl");
+																			node aux2 = newNode($3->node_type, $3->valor, $3->s_type);
 																			add_child(aux1, aux2);
 																			addBrother(aux2, newNode("node_id", aux->valor, "Id"));
 																			addBrother($$, aux1);
