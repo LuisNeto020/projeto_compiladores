@@ -1,18 +1,20 @@
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-typedef struct node{
+typedef struct Node{
     char * valor;
 	char * s_type;
 	char * node_type;
     int num_child;
-    struct node *brother;
-    struct node *child;
+    struct Node *brother;
+    struct Node *child;
 }Node;
 
 Node * newNode(char * node_type , char * valor, char * s_type);
-void add_child(Node father, Node child);
+void add_child(Node* father, Node* child);
 void addBrother(Node* node1, Node* node2);
 void printTree(Node *node, int depth);
-int countBrother(node root);
+int countBrother(Node* root);
+void freeTree(Node *node);
