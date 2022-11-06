@@ -18,7 +18,7 @@
     extern int flag_erro;
     int flag=0;
     char *strlit;
-    int str=false;
+    int str=0;
 %}
 
 ID 				([a-zA-Z]|"$"|"_")+([a-zA-Z]|[0-9]|"$"|"_")*
@@ -52,10 +52,9 @@ NEWLINE         \n|\r\n|\r
 <STRLLIT>\\(.?)                          {printf("Line %d, col %d: invalid escape sequence (%s)\n",line,col,yytext); col += yyleng;str = 0;}
 <STRLLIT>\n|\r|(\r\n)                    {line++; col= 1; printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]);BEGIN 0;}
 <STRLLIT>"\""                            {if(flag==1 && str==1)printf("STRLIT(%s)\n",strlit);col+=yyleng;BEGIN 0;
-                                                                        if(flag!= 1 && str== 0) {
+                                                                        if(flag!= 1 && str== 1) {
 											                                    yylval.id = strdup(strlit);
-											                                    
-											                                    											                                    return STRLIT;
+																				return STRLIT;
 										}}
 <STRLLIT><<EOF>>                         {printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]); col+=yyleng; BEGIN 0;}
 

@@ -36,23 +36,36 @@ void addBrother(Node* node1, Node* node2){
     temp->brother=node2;
 }
 
-void printTree(Node *node, int depth){
-    char dots[depth*2];
-    for (int i = 0; i<depth*2; i++){
-        dots[i]='.';
-    }
-    dots[2*depth]='\0';
-
-    if (strcmp(node->valor,"") != 0) {
-		printf("%s%s(%s)\n", dots, node->s_type, node->valor);
-	}
-	else {
-		printf("%s%s\n", dots, node->s_type);
-	}
-    if (node->child)    printTree(node->child, depth+1);
-    if (node->brother)  printTree(node->brother, depth);
-
-    free(node);
+void printTree(Node *root, int depth){
+          if (root == NULL) {
+            return ;
+        }
+        int i = 0;
+        Node* aux;
+        if (strcmp(root->node_type,"node_root")==0){
+            printf("%s\n", root->s_type);
+        }
+        else {
+            while (i < depth) {
+                printf("..");
+                i++;
+            }
+            if (strcmp(root->valor,"") != 0) {
+                printf("%s(%s)\n", root->s_type, root->valor);
+            }
+            else {
+                printf("%s\n", root->s_type);
+            }
+        }
+        aux = root->child;
+        while (aux != NULL) {
+            Node* aux_free = aux;
+            printTree(aux, depth+1);
+            aux = aux->brother;
+            free(aux_free->valor);
+            free(aux_free->s_type);
+            free(aux_free);
+        }
 }
 
 int countBrother(Node * root) {

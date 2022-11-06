@@ -4,7 +4,6 @@
 	#include <string.h>
 	#include <stdarg.h>
     #include "functions.h"
-    char* yytext;
     int yylex(void);
     void yyerror(const char *s);
     Node* root;
@@ -75,8 +74,8 @@ FieldDecl:	PUBLIC STATIC Type ID FieldDecl2 SEMICOLON				{$$ = newNode("node_var
 																	if ($5 != NULL){
 																		aux = $5;
 																		while (aux != NULL) {
-																			node aux1 = newNode("node_var", "", "FieldDecl");
-																			node aux2 = newNode($3->node_type, $3->valor, $3->s_type);
+																			Node* aux1 = newNode("node_var", "", "FieldDecl");
+																			Node* aux2 = newNode($3->node_type, $3->valor, $3->s_type);
 																			add_child(aux1, aux2);
 																			addBrother(aux2, newNode("node_id", aux->valor, "Id"));
 																			addBrother($$, aux1);
@@ -107,7 +106,7 @@ MethodHeader:	Type ID LPAR MethodHeader2 RPAR						{$$ = newNode("node_method", 
 																	aux = newNode("node_terminal", "", "Void");
 																	add_child($$, aux);
 																	addBrother(aux, newNode("node_id", $2, "Id"));
-																	node aux2 = newNode("node_method", "", "MethodParams");
+																	Node* aux2 = newNode("node_method", "", "MethodParams");
 																	addBrother(aux, aux2);
 																	add_child(aux2, $4);}
 			;
