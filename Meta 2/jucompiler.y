@@ -8,7 +8,6 @@
 	#include <string.h>
 	#include <stdarg.h>
     #include "functions.h"
-    char* yytext;
     int yylex(void);
     void yyerror(const char *s);
     Node* root;
