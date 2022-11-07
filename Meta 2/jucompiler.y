@@ -1,4 +1,8 @@
 %{
+	/*
+    Luís Neto -2020215474
+    João Moura -2020235800 
+	*/  
     #include <stdio.h>
 	#include <stdlib.h>
 	#include <string.h>
@@ -10,9 +14,7 @@
     Node* root;
 	Node* aux;
 	int flag_erro = 0;
-	extern int flag;
 %}
-
 %union {
 	char * id;
 	struct Node * node;
@@ -39,46 +41,42 @@
 %left STAR DIV MOD
 %right NOT
 %left LPAR RPAR LSQ RSQ
-
 %right ELSE
 
 %%
 
-Program:	CLASS ID LBRACE ProgramScript RBRACE					{root = newNode("node_root", "", "Program");
-																	aux = newNode("node_id", $2, "Id");
+Program:	CLASS ID LBRACE ProgramScript RBRACE					{root = newNode( "", "Program");
+																	aux = newNode( $2, "Id");
 																	add_child(root, aux);
 																	addBrother(aux, $4);
 																	$$ = root;
-																	if (flag == 2 && flag_erro == 0) {
-																		printTree($$, 0);
-																	}else{
-																		freeTree($$);
-																	}}
+																	}
+		| CLASS ID LBRACE ProgramScript RBRACE error				{$$ = NULL; flag_erro = 1;}
 		;
 
 ProgramScript: 	/* empty */											{$$ = NULL;}
 			|	MethodDecl ProgramScript							{$$ = $1;
 																	addBrother($$, $2);}
 			|	FieldDecl ProgramScript								{$$ = $1;
-																	add_child($$, $2);}
+																	addBrother($$, $2);}
 			|	SEMICOLON ProgramScript								{$$ = $2;}
 			;
 
-MethodDecl:	PUBLIC STATIC MethodHeader MethodBody					{$$ = newNode("node_method", "", "MethodDecl");
+MethodDecl:	PUBLIC STATIC MethodHeader MethodBody					{$$ = newNode( "", "MethodDecl");
 																	add_child($$, $3);
 																	addBrother($3, $4);}
 		;
 
-FieldDecl:	PUBLIC STATIC Type ID FieldDecl2 SEMICOLON				{$$ = newNode("node_var", "", "FieldDecl");
+FieldDecl:	PUBLIC STATIC Type ID FieldDecl2 SEMICOLON				{$$ = newNode( "", "FieldDecl");
 																	add_child($$, $3);
-																	addBrother($3, newNode("node_id", $4, "Id"));
+																	addBrother($3, newNode( $4, "Id"));
 																	if ($5 != NULL){
 																		aux = $5;
 																		while (aux != NULL) {
-																			Node* aux1 = newNode("node_var", "", "FieldDecl");
-																			Node* aux2 = newNode($3->node_type, $3->valor, $3->s_type);
+																			Node* aux1 = newNode( "", "FieldDecl");
+																			Node* aux2 = newNode( $3->valor, $3->s_type);
 																			add_child(aux1, aux2);
-																			addBrother(aux2, newNode("node_id", aux->valor, "Id"));
+																			addBrother(aux2, newNode( aux->valor, "Id"));
 																			addBrother($$, aux1);
 																			aux = aux->brother;
 																		}
@@ -88,26 +86,26 @@ FieldDecl:	PUBLIC STATIC Type ID FieldDecl2 SEMICOLON				{$$ = newNode("node_var
 		;
 
 FieldDecl2:	/* empty */												{$$ = NULL;}
-		|	COMMA ID FieldDecl2										{$$ = newNode("node_id", $2, "Id");
+		|	COMMA ID FieldDecl2										{$$ = newNode( $2, "Id");
 																	addBrother($$, $3);}
 		;
 
-Type:	BOOL														{$$ = newNode("node_terminal", "", "Bool");}
-	|	INT															{$$ = newNode("node_terminal", "", "Int");}
-	|	DOUBLE														{$$ = newNode("node_terminal", "", "Double");}
+Type:	BOOL														{$$ = newNode( "", "Bool");}
+	|	INT															{$$ = newNode( "", "Int");}
+	|	DOUBLE														{$$ = newNode( "", "Double");}
 	;
 
-MethodHeader:	Type ID LPAR MethodHeader2 RPAR						{$$ = newNode("node_method", "", "MethodHeader");
+MethodHeader:	Type ID LPAR MethodHeader2 RPAR						{$$ = newNode( "", "MethodHeader");
 																	add_child($$,$1);
-																	addBrother($1, newNode("node_id", $2, "Id"));
-																	aux = newNode("node_method", "", "MethodParams");
+																	addBrother($1, newNode( $2, "Id"));
+																	aux = newNode( "", "MethodParams");
 																	addBrother($1, aux);
 																	add_child(aux, $4);}
-			|	VOID ID LPAR MethodHeader2 RPAR						{$$ = newNode("node_method", "", "MethodHeader");
-																	aux = newNode("node_terminal", "", "Void");
+			|	VOID ID LPAR MethodHeader2 RPAR						{$$ = newNode( "", "MethodHeader");
+																	aux = newNode( "", "Void");
 																	add_child($$, aux);
-																	addBrother(aux, newNode("node_id", $2, "Id"));
-																	Node* aux2 = newNode("node_method", "", "MethodParams");
+																	addBrother(aux, newNode( $2, "Id"));
+																	Node* aux2 = newNode( "", "MethodParams");
 																	addBrother(aux, aux2);
 																	add_child(aux2, $4);}
 			;
@@ -116,26 +114,26 @@ MethodHeader2:	/* empty */											{$$ = NULL;}
 			|	FormalParams										{$$ = $1;}
 			;
 
-FormalParams:	Type ID FormalParams2								{$$ = newNode("node_metodos", "", "ParamDecl");
+FormalParams:	Type ID FormalParams2								{$$ = newNode( "", "ParamDecl");
 																	add_child($$, $1);
-																	aux = newNode("node_id", $2, "Id");
+																	aux = newNode( $2, "Id");
 																	addBrother($1, aux);
 																	addBrother($$, $3);}
-			|	STRING LSQ RSQ ID									{$$ = newNode("node_method", "", "ParamDecl");
-																	aux = newNode("node_method", "", "StringArray");
+			|	STRING LSQ RSQ ID									{$$ = newNode( "", "ParamDecl");
+																	aux = newNode( "", "StringArray");
 																	add_child($$, aux);
-																	addBrother(aux, newNode("node_id", $4, "Id"));}
+																	addBrother(aux, newNode( $4, "Id"));}
 			;
 
 FormalParams2:	/* empty */											{$$ = NULL;}
-			|	COMMA Type ID FormalParams2 						{$$ = newNode("node_method", "", "ParamDecl");
-																	aux = newNode("node_id", $3, "Id");
+			|	COMMA Type ID FormalParams2 						{$$ = newNode( "", "ParamDecl");
+																	aux = newNode( $3, "Id");
 																	add_child($$, $2);
 																	addBrother($2, aux);
 																	addBrother($$, $4);}
 			;
 
-MethodBody:	LBRACE MethodBody2 RBRACE								{$$ = newNode("node_method", "", "MethodBody");
+MethodBody:	LBRACE MethodBody2 RBRACE								{$$ = newNode( "", "MethodBody");
 																	add_child($$, $2);}
 		;
 
@@ -151,16 +149,16 @@ MethodBody2: 	/* empty */											{$$ = NULL;}
 																	addBrother($$, $2);}
 			;
 
-VarDecl:	Type ID VarDecl2 SEMICOLON								{$$ = newNode("node_method", "", "VarDecl");
+VarDecl:	Type ID VarDecl2 SEMICOLON								{$$ = newNode( "", "VarDecl");
 																	add_child($$, $1);
-																	addBrother($1, newNode("node_id", $2, "Id"));
+																	addBrother($1, newNode( $2, "Id"));
 																	if ($3 != NULL){
 																		aux = $3;
 																		while (aux != NULL) {
-																			Node* aux1 = newNode("node_method", "", "VarDecl");
-																			Node* aux2 = newNode($1->node_type, $1->valor, $1->s_type);
+																			Node* aux1 = newNode( "", "VarDecl");
+																			Node* aux2 = newNode( $1->valor, $1->s_type);
 																			add_child(aux1, aux2);
-																			addBrother(aux2, newNode("node_id", aux->valor, "Id"));
+																			addBrother(aux2, newNode( aux->valor, "Id"));
 																			addBrother($$, aux1);
 																			aux = aux->brother;
 																		}
@@ -169,21 +167,21 @@ VarDecl:	Type ID VarDecl2 SEMICOLON								{$$ = newNode("node_method", "", "Var
 		;
 
 VarDecl2:	/* empty */												{$$ = NULL;}
-		|	COMMA ID VarDecl2										{$$ = newNode("node_id", $2, "Id");
+		|	COMMA ID VarDecl2										{$$ = newNode( $2, "Id");
 																	addBrother($$, $3);}
 		;
 
 Statement:	LBRACE Statement2 RBRACE								{if (countBrother($2) > 1) {
-																		aux = newNode("node_statements", "", "Block");
+																		aux = newNode( "", "Block");
 																		$$ = aux;
 																		add_child(aux, $2);
 																	}
 																	else {
 																		$$ = $2;
 																	}}
-		|	IF LPAR Expr RPAR Statement %prec ELSE					{$$ = newNode("node_statements", "", "If");
+		|	IF LPAR Expr RPAR Statement %prec ELSE					{$$ = newNode( "", "If");
 																	add_child($$,$3);
-																	aux = newNode("node_statements", "", "Block");
+																	aux = newNode( "", "Block");
 																	if (countBrother($5) == 1 && $5 != NULL) {
 																		addBrother($3, $5);
 																		addBrother($5, aux);
@@ -191,11 +189,11 @@ Statement:	LBRACE Statement2 RBRACE								{if (countBrother($2) > 1) {
 																	else {
 																		addBrother($3, aux);
 																		add_child(aux, $5);
-																		addBrother(aux, newNode("node_statements", "", "Block"));
+																		addBrother(aux, newNode( "", "Block"));
 																	}}
-		|	IF LPAR Expr RPAR Statement ELSE Statement				{$$ = newNode("node_statements", "", "If");
+		|	IF LPAR Expr RPAR Statement ELSE Statement				{$$ = newNode( "", "If");
 																	add_child($$,$3);
-																	aux = newNode("node_statements", "", "Block");
+																	aux = newNode( "", "Block");
 																	if (countBrother($5) == 1 && $5 != NULL) {
 																		addBrother($3, $5);
 																		if (countBrother($7) == 1 && $7 != NULL) {
@@ -213,25 +211,25 @@ Statement:	LBRACE Statement2 RBRACE								{if (countBrother($2) > 1) {
 																			addBrother(aux, $7);
 																		}
 																		else {
-																			Node* aux2 = newNode("node_statements", "", "Block");
+																			Node* aux2 = newNode( "", "Block");
 																			addBrother(aux, aux2);
 																			add_child(aux2, $7);
 																		}
 																	}}
-		|	WHILE LPAR Expr RPAR Statement							{$$ = newNode("node_statements", "", "While");
+		|	WHILE LPAR Expr RPAR Statement							{$$ = newNode( "", "While");
 																	add_child($$, $3);
 																	if (countBrother($5) == 1 && $5 != NULL) {
 																		addBrother($3, $5);
 																	}
 																	else {
-																		aux = newNode("node_statements", "", "Block");
+																		aux = newNode( "", "Block");
 																		addBrother($3, aux);
 																		add_child(aux, $5);
 																	}}
-		|	RETURN ExprReturn SEMICOLON								{$$ = newNode("node_statements", "", "Return");
+		|	RETURN ExprReturn SEMICOLON								{$$ = newNode( "", "Return");
 																	add_child($$, $2);}
 		|	Statement3 SEMICOLON									{$$ = $1;}
-		|	PRINT LPAR StatementPrint RPAR SEMICOLON				{$$ = newNode("node_statements", "", "Print");
+		|	PRINT LPAR StatementPrint RPAR SEMICOLON				{$$ = newNode( "", "Print");
 																	add_child($$, $3);}
 		|	error SEMICOLON											{$$ = NULL;flag_erro = 1;}
 		;
@@ -257,11 +255,11 @@ Statement3:	/* empty */												{$$ = NULL;}
 		;
 
 StatementPrint:	Expr												{$$ = $1;}
-			|	STRLIT												{$$ = newNode("node_terminal", $1, "StrLit");}
+			|	STRLIT												{$$ = newNode( $1, "StrLit");}
 			;
 
-MethodInvocation:	ID LPAR MethodInvocation2 RPAR					{$$ = newNode("node_operators", "", "Call");
-																	aux = newNode("node_id", $1, "Id");
+MethodInvocation:	ID LPAR MethodInvocation2 RPAR					{$$ = newNode( "", "Call");
+																	aux = newNode( $1, "Id");
 																	add_child($$, aux);
 																	addBrother(aux, $3);}
 				|	ID LPAR error RPAR								{$$ = NULL;
@@ -283,14 +281,14 @@ MethodInvocationExpr:	/* empty */									{$$ = NULL;}
 																	}}
 					;
 
-Assignment:	ID ASSIGN Expr											{$$ = newNode("node_operators", "", "Assign");
-																	aux = newNode("node_id", $1, "Id");
+Assignment:	ID ASSIGN Expr											{$$ = newNode( "", "Assign");
+																	aux = newNode( $1, "Id");
 																	add_child($$, aux);
 																	addBrother(aux, $3);}
 		;
 
-ParseArgs:	PARSEINT LPAR ID LSQ Expr RSQ RPAR						{$$ = newNode("node_operators", "", "ParseArgs");
-																	aux = newNode("node_id", $3, "Id");
+ParseArgs:	PARSEINT LPAR ID LSQ Expr RSQ RPAR						{$$ = newNode( "", "ParseArgs");
+																	aux = newNode( $3, "Id");
 																	add_child($$, aux);
 																	addBrother(aux, $5);}
 		|	PARSEINT LPAR error RPAR								{$$ = NULL;
@@ -301,77 +299,78 @@ Expr:	Assignment													{$$ = $1;}
 	|	ExprOperations												{$$ = $1;}
 	;
 
-ExprOperations:	ExprOperations PLUS ExprOperations					{$$ = newNode("node_operators","", "Add");
+ExprOperations:	ExprOperations PLUS ExprOperations					{$$ = newNode("", "Add");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations MINUS ExprOperations					{$$ = newNode("node_operators", "", "Sub");
+			|	ExprOperations MINUS ExprOperations					{$$ = newNode( "", "Sub");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations STAR ExprOperations					{$$ = newNode("node_operators", "", "Mul");
+			|	ExprOperations STAR ExprOperations					{$$ = newNode( "", "Mul");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations DIV ExprOperations					{$$ = newNode("node_operators", "", "Div");
+			|	ExprOperations DIV ExprOperations					{$$ = newNode( "", "Div");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations MOD ExprOperations					{$$ = newNode("node_operators", "", "Mod");
+			|	ExprOperations MOD ExprOperations					{$$ = newNode( "", "Mod");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations AND ExprOperations					{$$ = newNode("node_operators", "", "And");
+			|	ExprOperations AND ExprOperations					{$$ = newNode( "", "And");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations OR ExprOperations					{$$ = newNode("node_operators", "", "Or");
+			|	ExprOperations OR ExprOperations					{$$ = newNode( "", "Or");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations XOR ExprOperations					{$$ = newNode("node_operators", "", "Xor");
+			|	ExprOperations XOR ExprOperations					{$$ = newNode( "", "Xor");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations LSHIFT ExprOperations				{$$ = newNode("node_operators", "", "Lshift");
+			|	ExprOperations LSHIFT ExprOperations				{$$ = newNode( "", "Lshift");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations RSHIFT ExprOperations				{$$ = newNode("node_operators", "", "Rshift");
+			|	ExprOperations RSHIFT ExprOperations				{$$ = newNode( "", "Rshift");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations EQ ExprOperations					{$$ = newNode("node_operators", "", "Eq");
+			|	ExprOperations EQ ExprOperations					{$$ = newNode( "", "Eq");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations GE ExprOperations					{$$ = newNode("node_operators", "", "Ge");
+			|	ExprOperations GE ExprOperations					{$$ = newNode( "", "Ge");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations GT ExprOperations					{$$ = newNode("node_operators", "", "Gt");
+			|	ExprOperations GT ExprOperations					{$$ = newNode( "", "Gt");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations LE ExprOperations					{$$ = newNode("node_operators", "", "Le");
+			|	ExprOperations LE ExprOperations					{$$ = newNode( "", "Le");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations LT ExprOperations					{$$ = newNode("node_operators", "", "Lt");
+			|	ExprOperations LT ExprOperations					{$$ = newNode( "", "Lt");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	ExprOperations NE ExprOperations					{$$ = newNode("node_operators", "", "Ne");
+			|	ExprOperations NE ExprOperations					{$$ = newNode( "", "Ne");
 																	add_child($$, $1);
 																	addBrother($1, $3);}
-			|	PLUS ExprOperations %prec NOT						{$$ = newNode("node_operators", "", "Plus");
+			|	PLUS ExprOperations %prec NOT						{$$ = newNode( "", "Plus");
 																	add_child($$, $2);}
-			|	MINUS ExprOperations %prec NOT						{$$ = newNode("node_operators", "", "Minus");
+			|	MINUS ExprOperations %prec NOT						{$$ = newNode( "", "Minus");
 																	add_child($$, $2);}
-			|	NOT ExprOperations									{$$ = newNode("node_operators", "", "Not");
+			|	NOT ExprOperations									{$$ = newNode( "", "Not");
 																	add_child($$, $2);}
 			|	LPAR Expr RPAR										{$$ = $2;}
 			|	LPAR error RPAR										{$$ = NULL;
 																	flag_erro = 1;}
 			|	Expr2												{$$ = $1;}
-			|	ID													{$$ = newNode("node_id", $1, "Id");}
-			|	ID DOTLENGTH										{$$ = newNode("node_operators", "", "Length");
-																	add_child($$, newNode("node_id", $1, "Id"));}
+			|	ID													{$$ = newNode( $1, "Id");}
+			|	ID DOTLENGTH										{$$ = newNode( "", "Length");
+																	add_child($$, newNode( $1, "Id"));}
 			|	ExprLit												{$$ = $1;}
 	;
+
 
 Expr2:	MethodInvocation											{$$ = $1;}
 	|	ParseArgs													{$$ = $1;}
 	;
 
-ExprLit:	INTLIT													{$$ = newNode("node_terminal", $1, "DecLit");}
-		|	REALLIT													{$$ = newNode("node_terminal", $1, "RealLit");}
-		|	BOOLLIT													{$$ = newNode("node_terminal", $1, "BoolLit");}
+ExprLit:	INTLIT													{$$ = newNode( $1, "DecLit");}
+		|	REALLIT													{$$ = newNode( $1, "RealLit");}
+		|	BOOLLIT													{$$ = newNode( $1, "BoolLit");}
 		;
 
 %%
