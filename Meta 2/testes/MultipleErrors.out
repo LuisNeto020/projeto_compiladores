@@ -1,0 +1,11 @@
+Line 2, col 39: unterminated string literal
+Line 4, col 4: syntax error: ++
+Line 5, col 4: illegal character (~)
+Line 7, col 8: syntax error: =
+Line 7, col 19: illegal character (?)
+Line 13, col 5: syntax error: else
+Line 15, col 22: syntax error: =
+Line 16, col 2: syntax error: String
+Line 17, col 15: illegal character (.)
+Line 17, col 19: illegal character (.)
+Line 22, col 37: unterminated comment

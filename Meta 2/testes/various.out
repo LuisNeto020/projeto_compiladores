@@ -1,0 +1,3 @@
+Line 5, col 3: syntax error: str
+Line 7, col 7: unterminated string literal
+Line 8, col 3: syntax error: ;
