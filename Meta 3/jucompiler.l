@@ -10,7 +10,7 @@
 	#include <stdbool.h>
     #include <stdarg.h>
 	#include "y.tab.h"
-	#include "functions.h"
+	#include "semantics.h"
 	#define false 0
     #define true 1
     int col=1; 
@@ -175,6 +175,15 @@ int main(int argc,char* argv[]){
             doYacc=true;
 			yyparse();
 			freeTree(root);
+		}
+		else if(strcmp(argv[1],"-s")==0){
+			doYacc=true;
+			printLex=false;
+			yyparse();
+			check_program(root);
+			print_tabela();
+			freeTree(root);
+
 		}
 	}
     else {

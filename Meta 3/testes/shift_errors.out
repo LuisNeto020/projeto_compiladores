@@ -1,0 +1,167 @@
+Line 17, col 15: Operator << cannot be applied to types int, double
+Line 17, col 11: Operator = cannot be applied to types int, undef
+Line 18, col 15: Operator << cannot be applied to types int, boolean
+Line 18, col 11: Operator = cannot be applied to types int, undef
+Line 20, col 15: Operator << cannot be applied to types double, int
+Line 20, col 11: Operator = cannot be applied to types double, undef
+Line 21, col 15: Operator << cannot be applied to types double, int
+Line 21, col 11: Operator = cannot be applied to types int, undef
+Line 22, col 15: Operator << cannot be applied to types double, double
+Line 22, col 11: Operator = cannot be applied to types double, undef
+Line 23, col 15: Operator << cannot be applied to types double, double
+Line 23, col 11: Operator = cannot be applied to types int, undef
+Line 24, col 15: Operator << cannot be applied to types double, boolean
+Line 24, col 11: Operator = cannot be applied to types double, undef
+Line 25, col 15: Operator << cannot be applied to types double, boolean
+Line 25, col 11: Operator = cannot be applied to types int, undef
+Line 27, col 15: Operator << cannot be applied to types boolean, int
+Line 27, col 11: Operator = cannot be applied to types boolean, undef
+Line 28, col 15: Operator << cannot be applied to types boolean, int
+Line 28, col 11: Operator = cannot be applied to types int, undef
+Line 29, col 15: Operator << cannot be applied to types boolean, double
+Line 29, col 11: Operator = cannot be applied to types boolean, undef
+Line 30, col 15: Operator << cannot be applied to types boolean, double
+Line 30, col 11: Operator = cannot be applied to types int, undef
+Line 31, col 15: Operator << cannot be applied to types boolean, boolean
+Line 31, col 11: Operator = cannot be applied to types boolean, undef
+Line 32, col 15: Operator << cannot be applied to types boolean, boolean
+Line 32, col 11: Operator = cannot be applied to types int, undef
+===== Class shift_errors Symbol Table =====
+valid	(String[])	void
+main	(String[])	void
+
+===== Method valid(String[]) Symbol Table =====
+return		void
+args		String[]	param
+x		int
+b		int
+
+===== Method main(String[]) Symbol Table =====
+return		void
+args		String[]	param
+i		int
+d		double
+b		boolean
+
+Program
+..Id(shift_errors)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(valid)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Int
+........Id(x)
+......VarDecl
+........Int
+........Id(b)
+......Assign - int
+........Id(x) - int
+........Lshift - int
+..........DecLit(1) - int
+..........Mul - int
+............Id(x) - int
+............DecLit(1) - int
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Int
+........Id(i)
+......VarDecl
+........Double
+........Id(d)
+......VarDecl
+........Bool
+........Id(b)
+......Assign - int
+........Id(i) - int
+........Lshift - int
+..........Id(i) - int
+..........DecLit(1) - int
+......Assign - double
+........Id(d) - double
+........Lshift - int
+..........Id(i) - int
+..........DecLit(1) - int
+......Assign - int
+........Id(i) - int
+........Lshift - undef
+..........Id(i) - int
+..........RealLit(1.1) - double
+......Assign - int
+........Id(i) - int
+........Lshift - undef
+..........Id(i) - int
+..........BoolLit(true) - boolean
+......Assign - double
+........Id(d) - double
+........Lshift - undef
+..........Id(d) - double
+..........DecLit(1) - int
+......Assign - int
+........Id(i) - int
+........Lshift - undef
+..........Id(d) - double
+..........DecLit(1) - int
+......Assign - double
+........Id(d) - double
+........Lshift - undef
+..........Id(d) - double
+..........RealLit(1.1) - double
+......Assign - int
+........Id(i) - int
+........Lshift - undef
+..........Id(d) - double
+..........RealLit(1.1) - double
+......Assign - double
+........Id(d) - double
+........Lshift - undef
+..........Id(d) - double
+..........BoolLit(true) - boolean
+......Assign - int
+........Id(i) - int
+........Lshift - undef
+..........Id(d) - double
+..........BoolLit(true) - boolean
+......Assign - boolean
+........Id(b) - boolean
+........Lshift - undef
+..........Id(b) - boolean
+..........DecLit(1) - int
+......Assign - int
+........Id(i) - int
+........Lshift - undef
+..........Id(b) - boolean
+..........DecLit(1) - int
+......Assign - boolean
+........Id(b) - boolean
+........Lshift - undef
+..........Id(b) - boolean
+..........RealLit(1.1) - double
+......Assign - int
+........Id(i) - int
+........Lshift - undef
+..........Id(b) - boolean
+..........RealLit(1.1) - double
+......Assign - boolean
+........Id(b) - boolean
+........Lshift - undef
+..........Id(b) - boolean
+..........BoolLit(true) - boolean
+......Assign - int
+........Id(i) - int
+........Lshift - undef
+..........Id(b) - boolean
+..........BoolLit(true) - boolean

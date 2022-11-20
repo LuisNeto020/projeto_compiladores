@@ -1,0 +1,126 @@
+Line 4, col 23: Symbol c already defined
+Line 4, col 26: Symbol a already defined
+Line 4, col 29: Symbol b already defined
+Line 5, col 26: Symbol _ is reserved
+Line 15, col 45: Symbol i already defined
+Line 23, col 45: Symbol i already defined
+Line 23, col 51: Symbol _ is reserved
+Line 8, col 11: Incompatible type int in if statement
+Line 13, col 11: Symbol ola already defined
+Line 17, col 13: Symbol i already defined
+Line 18, col 13: Symbol argument already defined
+Line 20, col 16: Symbol i already defined
+Line 20, col 18: Symbol _ is reserved
+===== Class errors Symbol Table =====
+a		int
+b		int
+c		int
+underscore	(int)	int
+factorial	(int,int)	void
+factorial	(int,int,int)	void
+
+===== Method underscore(int) Symbol Table =====
+return		int
+ola		int	param
+
+===== Method factorial(int,int) Symbol Table =====
+return		void
+i		int	param
+argument		int
+a		int
+
+===== Method factorial(int,int,int) Symbol Table =====
+return		void
+i		int	param
+
+Program
+..Id(errors)
+..FieldDecl
+....Int
+....Id(a)
+..FieldDecl
+....Int
+....Id(b)
+..FieldDecl
+....Int
+....Id(c)
+..FieldDecl
+....Int
+....Id(c)
+..FieldDecl
+....Int
+....Id(a)
+..FieldDecl
+....Int
+....Id(b)
+..FieldDecl
+....Double
+....Id(_)
+..MethodDecl
+....MethodHeader
+......Int
+......Id(underscore)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(ola)
+....MethodBody
+......If
+........Id(ola) - int
+........Return
+..........Id(ola) - int
+........Return
+..........Id(ola) - int
+......VarDecl
+........Int
+........Id(ola)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(factorial)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(i)
+........ParamDecl
+..........Int
+..........Id(i)
+....MethodBody
+......VarDecl
+........Int
+........Id(argument)
+......VarDecl
+........Int
+........Id(i)
+......VarDecl
+........Int
+........Id(argument)
+......VarDecl
+........Int
+........Id(a)
+......VarDecl
+........Double
+........Id(i)
+......VarDecl
+........Double
+........Id(_)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(factorial)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(i)
+........ParamDecl
+..........Int
+..........Id(i)
+........ParamDecl
+..........Int
+..........Id(_)
+....MethodBody
+......Assign - int
+........Id(i) - int
+........Add - int
+..........Id(i) - int
+..........Id(i) - int

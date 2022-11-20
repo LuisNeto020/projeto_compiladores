@@ -6,6 +6,8 @@ Node * newNode( char * valor, char * s_type){
     new->valor=valor;
     new->child = NULL;
     new->brother = NULL;
+	new->parent=NULL;
+	new->type_tab = "";
 
     return new;
 }
@@ -16,6 +18,7 @@ void add_child(Node* father, Node*
 			return ;
 		}
 	father->child = novo;
+	novo->parent=father;
 }
 
 void addBrother(Node* node1, Node* node2){
@@ -28,6 +31,7 @@ void addBrother(Node* node1, Node* node2){
         temp=temp->brother;
     }
     temp->brother=node2;
+	temp->parent=node1->parent;
 }
 
 void printTree(Node *node, int depth){

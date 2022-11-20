@@ -1,0 +1,6 @@
+Line 19, col 20: Symbol a(int) already defined
+Line 5, col 8: Number 2147483648 out of bounds
+Line 15, col 8: Number 2147483649 out of bounds
+Line 16, col 6: Operator = cannot be applied to types int, boolean
+Line 25, col 26: Cannot find symbol s
+Line 25, col 9: Operator Integer.parseInt cannot be applied to types undef, double

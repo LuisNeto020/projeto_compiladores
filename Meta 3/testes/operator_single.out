@@ -1,0 +1,137 @@
+Line 13, col 9: Operator = cannot be applied to types int, double
+Line 20, col 11: Operator + cannot be applied to type boolean
+Line 20, col 9: Operator = cannot be applied to types boolean, undef
+Line 21, col 11: Operator + cannot be applied to type boolean
+Line 21, col 9: Operator = cannot be applied to types boolean, undef
+Line 28, col 12: Operator .length cannot be applied to type int
+Line 29, col 12: Operator .length cannot be applied to type double
+Line 33, col 11: Operator ! cannot be applied to type int
+Line 33, col 9: Operator = cannot be applied to types int, boolean
+Line 34, col 11: Operator ! cannot be applied to type double
+Line 34, col 9: Operator = cannot be applied to types double, boolean
+Line 38, col 7: Reference to method f(int,int) is ambiguous
+===== Class operator_single Symbol Table =====
+main	(String[])	void
+f	(int,double)	void
+f	(double,int)	void
+
+===== Method main(String[]) Symbol Table =====
+return		void
+args		String[]	param
+i		int
+d		double
+b		boolean
+tamanho		int
+
+===== Method f(int,double) Symbol Table =====
+return		void
+a		int	param
+b		double	param
+
+===== Method f(double,int) Symbol Table =====
+return		void
+a		double	param
+b		int	param
+
+Program
+..Id(operator_single)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Int
+........Id(i)
+......VarDecl
+........Double
+........Id(d)
+......VarDecl
+........Bool
+........Id(b)
+......Assign - boolean
+........Id(b) - boolean
+........BoolLit(false) - boolean
+......Assign - int
+........Id(i) - int
+........Plus - int
+..........DecLit(5) - int
+......Assign - int
+........Id(i) - int
+........Plus - double
+..........RealLit(2.0) - double
+......Assign - double
+........Id(d) - double
+........Plus - int
+..........DecLit(1) - int
+......Assign - double
+........Id(d) - double
+........Plus - double
+..........RealLit(2.0) - double
+......Assign - boolean
+........Id(b) - boolean
+........Plus - undef
+..........BoolLit(false) - boolean
+......Assign - boolean
+........Id(b) - boolean
+........Plus - undef
+..........BoolLit(true) - boolean
+......VarDecl
+........Int
+........Id(tamanho)
+......Assign - int
+........Id(tamanho) - int
+........Length - int
+..........Id(args) - String[]
+......Assign - int
+........Id(i) - int
+........Length - int
+..........Id(i) - int
+......Assign - int
+........Id(i) - int
+........Length - int
+..........Id(d) - double
+......Assign - int
+........Id(i) - int
+........Not - boolean
+..........Id(i) - int
+......Assign - double
+........Id(d) - double
+........Not - boolean
+..........Id(d) - double
+......Assign - boolean
+........Id(b) - boolean
+........Not - boolean
+..........Id(b) - boolean
+......Call - undef
+........Id(f) - undef
+........DecLit(1) - int
+........DecLit(1) - int
+..MethodDecl
+....MethodHeader
+......Void
+......Id(f)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(a)
+........ParamDecl
+..........Double
+..........Id(b)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Void
+......Id(f)
+......MethodParams
+........ParamDecl
+..........Double
+..........Id(a)
+........ParamDecl
+..........Int
+..........Id(b)
+....MethodBody

@@ -1,0 +1,98 @@
+===== Class divide Symbol Table =====
+num		int
+den		int
+main	(String[])	void
+
+===== Method main(String[]) Symbol Table =====
+return		void
+args		String[]	param
+quo		int
+q		int
+r		int
+check		boolean
+
+Program
+..Id(divide)
+..FieldDecl
+....Int
+....Id(num)
+..FieldDecl
+....Int
+....Id(den)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Int
+........Id(quo)
+......VarDecl
+........Int
+........Id(q)
+......VarDecl
+........Int
+........Id(r)
+......Assign - int
+........Id(num) - int
+........ParseArgs - int
+..........Id(args) - String[]
+..........DecLit(0) - int
+......Assign - int
+........Id(den) - int
+........ParseArgs - int
+..........Id(args) - String[]
+..........DecLit(1) - int
+......Assign - int
+........Id(q) - int
+........Div - int
+..........Id(num) - int
+..........Id(den) - int
+......Assign - int
+........Id(r) - int
+........Mod - int
+..........Id(num) - int
+..........Id(den) - int
+......Assign - int
+........Id(quo) - int
+........DecLit(0) - int
+......While
+........Le - boolean
+..........Id(den) - int
+..........Id(num) - int
+........Block
+..........Assign - int
+............Id(num) - int
+............Sub - int
+..............Id(num) - int
+..............Id(den) - int
+..........Assign - int
+............Id(quo) - int
+............Add - int
+..............Id(quo) - int
+..............DecLit(1) - int
+......VarDecl
+........Bool
+........Id(check)
+......Assign - boolean
+........Id(check) - boolean
+........And - boolean
+..........Eq - boolean
+............Id(quo) - int
+............Id(q) - int
+..........Eq - boolean
+............Id(num) - int
+............Id(r) - int
+......If
+........Id(check) - boolean
+........Block
+..........Print
+............Id(quo) - int
+..........Print
+............Id(num) - int
+........Print
+..........Id(check) - boolean

@@ -1,0 +1,165 @@
+Line 21, col 15: Operator == cannot be applied to types int, boolean
+Line 22, col 15: Operator == cannot be applied to types double, boolean
+Line 35, col 15: Operator != cannot be applied to types int, boolean
+Line 36, col 15: Operator != cannot be applied to types double, boolean
+Line 38, col 18: Operator == cannot be applied to types String[], String[]
+Line 39, col 18: Operator != cannot be applied to types String[], int
+===== Class equality_or_equity_question_mark Symbol Table =====
+main	(String[])	void
+
+===== Method main(String[]) Symbol Table =====
+return		void
+args		String[]	param
+i		int
+d		double
+b		boolean
+
+Program
+..Id(equality_or_equity_question_mark)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Int
+........Id(i)
+......VarDecl
+........Double
+........Id(d)
+......VarDecl
+........Bool
+........Id(b)
+......Assign - int
+........Id(i) - int
+........DecLit(0) - int
+......Assign - double
+........Id(d) - double
+........RealLit(1.1) - double
+......Assign - boolean
+........Id(b) - boolean
+........BoolLit(true) - boolean
+......If
+........Eq - boolean
+..........Id(i) - int
+..........Id(i) - int
+........Block
+........Block
+......If
+........Eq - boolean
+..........Id(i) - int
+..........DecLit(1) - int
+........Block
+........Block
+......If
+........Eq - boolean
+..........Id(d) - double
+..........Id(d) - double
+........Block
+........Block
+......If
+........Eq - boolean
+..........Id(d) - double
+..........RealLit(1.1) - double
+........Block
+........Block
+......If
+........Eq - boolean
+..........Id(b) - boolean
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Eq - boolean
+..........Id(b) - boolean
+..........BoolLit(true) - boolean
+........Block
+........Block
+......If
+........Eq - boolean
+..........Id(i) - int
+..........Id(d) - double
+........Block
+........Block
+......If
+........Eq - boolean
+..........Id(i) - int
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Eq - boolean
+..........Id(d) - double
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Ne - boolean
+..........Id(i) - int
+..........Id(i) - int
+........Block
+........Block
+......If
+........Ne - boolean
+..........Id(i) - int
+..........DecLit(1) - int
+........Block
+........Block
+......If
+........Ne - boolean
+..........Id(d) - double
+..........Id(d) - double
+........Block
+........Block
+......If
+........Ne - boolean
+..........Id(d) - double
+..........RealLit(1.1) - double
+........Block
+........Block
+......If
+........Ne - boolean
+..........Id(b) - boolean
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Ne - boolean
+..........Id(b) - boolean
+..........BoolLit(true) - boolean
+........Block
+........Block
+......If
+........Ne - boolean
+..........Id(i) - int
+..........Id(d) - double
+........Block
+........Block
+......If
+........Ne - boolean
+..........Id(i) - int
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Ne - boolean
+..........Id(d) - double
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Eq - boolean
+..........Id(args) - String[]
+..........Id(args) - String[]
+........Block
+........Block
+......If
+........Ne - boolean
+..........Id(args) - String[]
+..........Id(i) - int
+........Block
+........Block

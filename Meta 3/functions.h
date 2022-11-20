@@ -6,8 +6,10 @@
 typedef struct Node{
     char * valor;
 	char * s_type;
+    char * type_tab;
     struct Node *child;
     struct Node *brother;
+    struct Node *parent;
 }Node;
 
 Node * newNode(char * valor, char * s_type);
