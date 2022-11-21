@@ -1,0 +1,137 @@
+Line 14, col 11: Operator = cannot be applied to types int, double
+Line 15, col 11: Operator = cannot be applied to types int, double
+Line 17, col 15: Operator + cannot be applied to types int, boolean
+Line 17, col 11: Operator = cannot be applied to types int, undef
+Line 18, col 15: Operator - cannot be applied to types int, boolean
+Line 18, col 11: Operator = cannot be applied to types int, undef
+Line 20, col 15: Operator + cannot be applied to types int, String[]
+Line 20, col 11: Operator = cannot be applied to types int, undef
+Line 21, col 15: Operator - cannot be applied to types int, String[]
+Line 21, col 11: Operator = cannot be applied to types int, undef
+Line 29, col 15: Operator + cannot be applied to types int, boolean
+Line 29, col 11: Operator = cannot be applied to types double, undef
+Line 30, col 15: Operator - cannot be applied to types int, boolean
+Line 30, col 11: Operator = cannot be applied to types double, undef
+Line 32, col 15: Operator + cannot be applied to types int, String[]
+Line 32, col 11: Operator = cannot be applied to types double, undef
+Line 33, col 15: Operator - cannot be applied to types int, String[]
+Line 33, col 11: Operator = cannot be applied to types double, undef
+===== Class sub_2_pewdiepie Symbol Table =====
+main	(String[])	void
+
+===== Method main(String[]) Symbol Table =====
+return		void
+args		String[]	param
+i		int
+d		double
+b		boolean
+
+Program
+..Id(sub_2_pewdiepie)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Int
+........Id(i)
+......VarDecl
+........Double
+........Id(d)
+......VarDecl
+........Bool
+........Id(b)
+......Assign - int
+........Id(i) - int
+........DecLit(1) - int
+......Assign - double
+........Id(d) - double
+........RealLit(1.1) - double
+......Assign - boolean
+........Id(b) - boolean
+........BoolLit(true) - boolean
+......Assign - int
+........Id(i) - int
+........Add - int
+..........Id(i) - int
+..........Id(i) - int
+......Assign - int
+........Id(i) - int
+........Sub - int
+..........Id(i) - int
+..........Id(i) - int
+......Assign - int
+........Id(i) - int
+........Add - double
+..........Id(i) - int
+..........Id(d) - double
+......Assign - int
+........Id(i) - int
+........Sub - double
+..........Id(i) - int
+..........Id(d) - double
+......Assign - int
+........Id(i) - int
+........Add - undef
+..........Id(i) - int
+..........Id(b) - boolean
+......Assign - int
+........Id(i) - int
+........Sub - undef
+..........Id(i) - int
+..........Id(b) - boolean
+......Assign - int
+........Id(i) - int
+........Add - undef
+..........Id(i) - int
+..........Id(args) - String[]
+......Assign - int
+........Id(i) - int
+........Sub - undef
+..........Id(i) - int
+..........Id(args) - String[]
+......Assign - double
+........Id(d) - double
+........Add - int
+..........Id(i) - int
+..........Id(i) - int
+......Assign - double
+........Id(d) - double
+........Sub - int
+..........Id(i) - int
+..........Id(i) - int
+......Assign - double
+........Id(d) - double
+........Add - double
+..........Id(i) - int
+..........Id(d) - double
+......Assign - double
+........Id(d) - double
+........Sub - double
+..........Id(i) - int
+..........Id(d) - double
+......Assign - double
+........Id(d) - double
+........Add - undef
+..........Id(i) - int
+..........Id(b) - boolean
+......Assign - double
+........Id(d) - double
+........Sub - undef
+..........Id(i) - int
+..........Id(b) - boolean
+......Assign - double
+........Id(d) - double
+........Add - undef
+..........Id(i) - int
+..........Id(args) - String[]
+......Assign - double
+........Id(d) - double
+........Sub - undef
+..........Id(i) - int
+..........Id(args) - String[]

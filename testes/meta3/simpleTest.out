@@ -1,0 +1,33 @@
+Line 6, col 9: Operator = cannot be applied to types int, double
+Line 7, col 13: Operator = cannot be applied to types int, double
+Line 8, col 9: Operator = cannot be applied to types int, double
+Line 9, col 9: Operator = cannot be applied to types int, boolean
+Line 15, col 21: Operator * cannot be applied to types String[], String[]
+Line 15, col 28: Operator + cannot be applied to types undef, String[]
+Line 15, col 43: Operator && cannot be applied to types String[], String[]
+Line 15, col 35: Operator || cannot be applied to types undef, boolean
+Line 15, col 14: Operator = cannot be applied to types String[], boolean
+Line 16, col 21: Operator * cannot be applied to types String[], int
+Line 16, col 25: Operator + cannot be applied to types undef, int
+Line 16, col 46: Operator && cannot be applied to types boolean, String[]
+Line 16, col 38: Operator || cannot be applied to types undef, boolean
+Line 16, col 14: Operator = cannot be applied to types String[], boolean
+Line 17, col 21: Operator < cannot be applied to types String[], int
+Line 17, col 25: Operator >= cannot be applied to types boolean, int
+Line 17, col 47: Operator != cannot be applied to types boolean, String[]
+Line 17, col 14: Operator = cannot be applied to types String[], boolean
+Line 18, col 21: Operator < cannot be applied to types boolean, int
+Line 18, col 33: Operator == cannot be applied to types String[], double
+Line 18, col 14: Operator = cannot be applied to types String[], boolean
+Line 19, col 21: Operator && cannot be applied to types String[], String[]
+Line 19, col 29: Operator || cannot be applied to types boolean, String[]
+Line 19, col 14: Operator = cannot be applied to types String[], boolean
+Line 20, col 14: Operator = cannot be applied to types String[], String[]
+Line 21, col 18: Operator = cannot be applied to types int, double
+Line 23, col 18: Operator = cannot be applied to types int, double
+Line 30, col 18: Operator > cannot be applied to types String[], int
+Line 31, col 16: Cannot find symbol main(int)
+Line 31, col 16: Incompatible type undef in return statement
+Line 32, col 16: Incompatible type String[] in return statement
+Line 33, col 9: Incompatible type void in return statement
+Line 37, col 12: Incompatible type double in return statement

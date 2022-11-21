@@ -1,0 +1,64 @@
+Line 4, col 9: Cannot find symbol b
+Line 4, col 11: Operator + cannot be applied to types undef, boolean
+Line 4, col 7: Operator = cannot be applied to types int, undef
+Line 5, col 9: Cannot find symbol b
+Line 5, col 11: Operator + cannot be applied to types undef, double
+Line 5, col 7: Operator = cannot be applied to types int, undef
+Line 6, col 9: Cannot find symbol b
+Line 6, col 11: Operator + cannot be applied to types undef, int
+Line 6, col 7: Operator = cannot be applied to types int, undef
+Line 7, col 9: Cannot find symbol b
+Line 7, col 13: Cannot find symbol c
+Line 7, col 11: Operator + cannot be applied to types undef, undef
+Line 7, col 7: Operator = cannot be applied to types int, undef
+===== Class Java Symbol Table =====
+a	()	int
+
+===== Method a() Symbol Table =====
+return		int
+a		int
+b		int
+c		int
+
+Program
+..Id(Java)
+..MethodDecl
+....MethodHeader
+......Int
+......Id(a)
+......MethodParams
+....MethodBody
+......VarDecl
+........Int
+........Id(a)
+......Assign - int
+........Id(a) - int
+........Add - undef
+..........Id(b) - undef
+..........BoolLit(true) - boolean
+......Assign - int
+........Id(a) - int
+........Add - undef
+..........Id(b) - undef
+..........RealLit(1.0_43443) - double
+......Assign - int
+........Id(a) - int
+........Add - undef
+..........Id(b) - undef
+..........DecLit(1) - int
+......Assign - int
+........Id(a) - int
+........Add - undef
+..........Id(b) - undef
+..........Id(c) - undef
+......VarDecl
+........Int
+........Id(b)
+......VarDecl
+........Int
+........Id(c)
+......Assign - int
+........Id(a) - int
+........Add - int
+..........Id(b) - int
+..........Id(c) - int

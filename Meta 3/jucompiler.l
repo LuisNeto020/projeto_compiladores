@@ -181,6 +181,7 @@ int main(int argc,char* argv[]){
 			printLex=false;
 			yyparse();
 			check_program(root);
+			check_ast(root);
 			print_tabela();
 			freeTree(root);
 

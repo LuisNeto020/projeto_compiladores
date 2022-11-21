@@ -20,10 +20,10 @@ void check_program(Node* raiz) {
     else if (strcmp(raiz->s_type, "MethodDecl") == 0) {
         check_method_decl(raiz->child);
     }
-    Node* aux_filho = raiz->child;
-    while (aux_filho != NULL) {
-        check_program(aux_filho);
-        aux_filho = aux_filho->brother;
+    Node* aux = raiz->child;
+    while (aux != NULL) {
+        check_program(aux);
+        aux = aux->brother;
     }
     
 }
@@ -78,6 +78,7 @@ char * check_method_decl(Node* raiz) {
     insere_elem(valor, s_type, params, NULL, "Class");
     init_method(n_string, valor, array_params, s_type);
     adiciona_method_params(raiz->child->brother->brother, n_string);
+    //check_method_body(raiz->child->brother, n_string);
     return n_string;
 }
 
