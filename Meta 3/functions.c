@@ -1,13 +1,41 @@
+
+
 #include "functions.h"
 
-Node * newNode( char * valor, char * s_type){
-    Node * new = (Node *) malloc(sizeof(Node));
+
+
+
+Node * newNode( token * val, char * s_type){
+	Node * new = (Node *) malloc(sizeof(Node));
+	if(val!=NULL){
 	new->s_type = s_type;	
-    new->valor=valor;
+    new->valor=val->value;
     new->child = NULL;
     new->brother = NULL;
 	new->parent=NULL;
-	new->type_tab = "";
+	new->n_params=0;
+	new->l=val->line;
+	new->column=val->column;
+	new->to_anote=0;
+	
+	new->anoted="";
+	freeToken(val);
+}
+	else{
+	new->s_type = s_type;	
+    new->valor="";
+    new->child = NULL;
+    new->brother = NULL;
+	new->parent=NULL;
+	new->n_params=0;
+	new->l=0;
+	new->column=0;
+	new->to_anote=0;
+	new->anoted="";
+		
+	}
+	
+	
 
     return new;
 }

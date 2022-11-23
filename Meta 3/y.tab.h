@@ -165,7 +165,7 @@ union YYSTYPE
 {
 #line 17 "jucompiler.y"
 
-	char * id;
+	struct token* value;
 	struct Node * node;
 
 #line 172 "y.tab.h"

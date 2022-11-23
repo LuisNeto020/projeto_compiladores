@@ -10,10 +10,10 @@
 	#include <stdbool.h>
     #include <stdarg.h>
 	#include "y.tab.h"
-	#include "semantics.h"
+	#include "symbol_table.h"
 	#define false 0
     #define true 1
-    int col=1; 
+    int column=1; 
     int line=1;
     int commentBegin[2];
     int strlitBegin[2];
@@ -23,6 +23,11 @@
     int doYacc=false;
     char *strlit;
     int str=0;
+	sym_table *global_table,*local_table;
+	int nErrorsSemantic;
+	
+	
+	
 %}
 
 ID 				([a-zA-Z]|"$"|"_")+([a-zA-Z]|[0-9]|"$"|"_")*
@@ -42,107 +47,111 @@ NEWLINE         \n|\r\n|\r
 %%
 
 "//"                                       {BEGIN LINE_COMMENT;}
-<LINE_COMMENT>{NEWLINE}                    {line+=1,col=1,BEGIN 0;}
-<LINE_COMMENT>.                            {col+=yyleng;}
+<LINE_COMMENT>{NEWLINE}                    {line+=1,column=1,BEGIN 0;}
+<LINE_COMMENT>.                            {column+=yyleng;}
 
-"/*"                {BEGIN COMMENT;commentBegin[0]=line;commentBegin[1]=col;col+=yyleng;}
-<COMMENT>"*/"       {BEGIN 0;col+=yyleng;}
-<COMMENT>{NEWLINE}  {line++;col=1;}
-<COMMENT>.          {col+=yyleng;}
-<COMMENT><<EOF>>    {BEGIN 0;printf("Line %d, col %d: unterminated comment\n",commentBegin[0],commentBegin[1]);}
+"/*"                {BEGIN COMMENT;commentBegin[0]=line;commentBegin[1]=column;column+=yyleng;}
+<COMMENT>"*/"       {BEGIN 0;column+=yyleng;}
+<COMMENT>{NEWLINE}  {line++;column=1;}
+<COMMENT>.          {column+=yyleng;}
+<COMMENT><<EOF>>    {BEGIN 0;printf("Line %d, column %d: unterminated comment\n",commentBegin[0],commentBegin[1]);}
 
-\"                                      {BEGIN STRLLIT;strlit=yytext;strlitBegin[0]=line;strlitBegin[1]=col;col+=yyleng;str=1;}
-<STRLLIT>{STRLIT}                        {col+=yyleng;}
-<STRLLIT>\\(.?)                          {printf("Line %d, col %d: invalid escape sequence (%s)\n",line,col,yytext); col += yyleng;str = 0;}
-<STRLLIT>\n|\r|(\r\n)                    {line++; col= 1; printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]);BEGIN 0;}
-<STRLLIT>"\""                            {if(printLex && str==1)printf("STRLIT(%s)\n",strlit);col+=yyleng;BEGIN 0;
+\"                                      {BEGIN STRLLIT;strlit=yytext;strlitBegin[0]=line;strlitBegin[1]=column;column+=yyleng;str=1;}
+<STRLLIT>{STRLIT}                        {column+=yyleng;}
+<STRLLIT>\\(.?)                          {printf("Line %d, column %d: invalid escape sequence (%s)\n",line,column,yytext); column += yyleng;str = 0;}
+<STRLLIT>\n|\r|(\r\n)                    {line++; column= 1; printf("Line %d, column %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]);BEGIN 0;}
+<STRLLIT>"\""                            {if(printLex && str==1)printf("STRLIT(%s)\n",strlit);column+=yyleng;BEGIN 0;
                                                                         if(doYacc && str== 1) {
-											                                    yylval.id = strdup(strlit);
+																				yylval.value = createToken(yytext, line, column);
+											                            
 																				yytext=strlit;
+																				yylval.value = createToken(yytext, line, column);
 																				return STRLIT;
 										}}
-<STRLLIT><<EOF>>                         {printf("Line %d, col %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]); col+=yyleng; BEGIN 0;}
+<STRLLIT><<EOF>>                         {printf("Line %d, column %d: unterminated string literal\n",strlitBegin[0],strlitBegin[1]); column+=yyleng; BEGIN 0;}
 
 
-"true"              {if(printLex)printf("BOOLLIT(true)\n"); col+=yyleng;
+"true"              {if(printLex)printf("BOOLLIT(true)\n"); column+=yyleng;
                                         if(doYacc) {
-											yylval.id = strdup(yytext);
+										
+											yylval.value = createToken(yytext, line, column);
 											return BOOLLIT;
 										}}
-"false"             {if(printLex)printf("BOOLLIT(false)\n"); col+=yyleng;
+"false"             {if(printLex)printf("BOOLLIT(false)\n"); column+=yyleng;
                                         if(doYacc) {
-											yylval.id = strdup(yytext);
+											
+											yylval.value = createToken(yytext, line, column);
 											return BOOLLIT;
 										}}
-"&&"                {if(printLex)printf("AND\n"); col+=yyleng;if(doYacc)return AND;}
-"="                 {if(printLex)printf("ASSIGN\n"); col+=yyleng; if(doYacc)return ASSIGN;}
-"*"                 {if(printLex)printf("STAR\n"); col+=yyleng; if(doYacc)return STAR;}
-","                 {if(printLex)printf("COMMA\n"); col+=yyleng; if(doYacc)return COMMA;}
-"/"                 {if(printLex)printf("DIV\n"); col+=yyleng; if(doYacc)return DIV;}
-"=="                {if(printLex)printf("EQ\n"); col+=yyleng; if(doYacc)return EQ;}
-">="                {if(printLex)printf("GE\n"); col+=yyleng; if(doYacc)return GE;}
-">"                 {if(printLex)printf("GT\n"); col+=yyleng; if(doYacc)return GT;}
-"{"                 {if(printLex)printf("LBRACE\n"); col+=yyleng; if(doYacc)return LBRACE;}
-"<="                {if(printLex)printf("LE\n"); col+=yyleng; if(doYacc)return LE;}
-"("                 {if(printLex)printf("LPAR\n");col+=yyleng; if(doYacc)return LPAR;}
-"["                 {if(printLex)printf("LSQ\n");col+=yyleng; if(doYacc)return LSQ;}
-"<"                 {if(printLex)printf("LT\n");col+=yyleng; if(doYacc)return LT;}
-"-"                 {if(printLex)printf("MINUS\n");col+=yyleng; if(doYacc)return MINUS;}
-"%"                 {if(printLex)printf("MOD\n"); col+=yyleng; if(doYacc)return MOD;}
-"!="                {if(printLex)printf("NE\n"); col+=yyleng; if(doYacc)return NE;}
-"!"                 {if(printLex)printf("NOT\n");col+=yyleng; if(doYacc)return NOT;}
-"||"                {if(printLex)printf("OR\n"); col+=yyleng; if(doYacc)return OR;}
-"+"                 {if(printLex)printf("PLUS\n");col+=yyleng; if(doYacc)return PLUS;}
-"}"                 {if(printLex)printf("RBRACE\n");col+=yyleng; if(doYacc)return RBRACE;}
-")"                 {if(printLex)printf("RPAR\n"); col+=yyleng; if(doYacc)return RPAR;}
-"]"                 {if(printLex)printf("RSQ\n"); col+=yyleng; if(doYacc)return RSQ;}
-";"                 {if(printLex)printf("SEMICOLON\n"); col+=yyleng; if(doYacc)return SEMICOLON;}
-"->"                {if(printLex)printf("ARROW\n"); col+=yyleng; if(doYacc)return ARROW;}
-"<<"                {if(printLex)printf("LSHIFT\n"); col+=yyleng; if(doYacc)return LSHIFT;}
-">>"                {if(printLex)printf("RSHIFT\n"); col+=yyleng; if(doYacc)return RSHIFT;}
-"^"                 {if(printLex)printf("XOR\n"); col+=yyleng; if(doYacc)return XOR;}
-"boolean"           {if(printLex)printf("BOOL\n"); col+=yyleng;if(doYacc)return BOOL;}
-"class"             {if(printLex)printf("CLASS\n"); col+=yyleng;if(doYacc)return CLASS;}
-".length"           {if(printLex)printf("DOTLENGTH\n"); col+=yyleng;if(doYacc)return DOTLENGTH;}
-"double"            {if(printLex)printf("DOUBLE\n"); col+=yyleng;if(doYacc)return DOUBLE;}
-"else"              {if(printLex)printf("ELSE\n"); col+=yyleng; if(doYacc)return ELSE;}
-"if"                {if(printLex)printf("IF\n"); col+=yyleng;if(doYacc)return IF;}
-"int"               {if(printLex)printf("INT\n"); col+=yyleng;if(doYacc)return INT;}
-"System.out.print"  {if(printLex)printf("PRINT\n"); col+=yyleng;if(doYacc)return PRINT;}
-"Integer.parseInt"  {if(printLex)printf("PARSEINT\n"); col+=yyleng;if(doYacc) return PARSEINT;}
-"return"            {if(printLex)printf("RETURN\n"); col+=yyleng;if(doYacc) return RETURN;}
-"static"            {if(printLex)printf("STATIC\n"); col+=yyleng;if(doYacc)return STATIC;}
-"String"            {if(printLex)printf("STRING\n"); col+=yyleng;if(doYacc)return STRING;}
-"void"              {if(printLex)printf("VOID\n"); col+=yyleng;if(doYacc) return VOID;}
-"public"            {if(printLex)printf("PUBLIC\n"); col+=yyleng;if(doYacc)return PUBLIC;}
-"while"             {if(printLex)printf("WHILE\n"); col+=yyleng;if(doYacc) return WHILE;}
-{RESERVED}          {if(printLex)printf("RESERVED(%s)\n",yytext); col+=yyleng;if(doYacc) return RESERVED;}
-{SPACE}             {col+=yyleng;}
-"\f"                {col+=yyleng;}
-{NEWLINE}           {line+=1; col=1;}
-{ID}                {if(printLex)printf("ID(%s)\n",yytext); col+=yyleng;
+"&&"                {if(printLex)printf("AND\n"); column+=yyleng;if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return AND;}}
+"="                 {if(printLex)printf("ASSIGN\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return ASSIGN;}}
+"*"                 {if(printLex)printf("STAR\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return STAR;}}
+","                 {if(printLex)printf("COMMA\n"); column+=yyleng; if(doYacc)return COMMA;}
+"/"                 {if(printLex)printf("DIV\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return DIV;}}
+"=="                {if(printLex)printf("EQ\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return EQ;}}
+">="                {if(printLex)printf("GE\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return GE;}}
+">"                 {if(printLex)printf("GT\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return GT;}}
+"{"                 {if(printLex)printf("LBRACE\n"); column+=yyleng; if(doYacc)return LBRACE;}
+"<="                {if(printLex)printf("LE\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return LE;}}
+"("                 {if(printLex)printf("LPAR\n");column+=yyleng; if(doYacc)return LPAR;}
+"["                 {if(printLex)printf("LSQ\n");column+=yyleng; if(doYacc)return LSQ;}
+"<"                 {if(printLex)printf("LT\n");column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return LT;}}
+"-"                 {if(printLex)printf("MINUS\n");column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return MINUS;}}
+"%"                 {if(printLex)printf("MOD\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return MOD;}}
+"!="                {if(printLex)printf("NE\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return NE;}}
+"!"                 {if(printLex)printf("NOT\n");column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return NOT;}}
+"||"                {if(printLex)printf("OR\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return OR;}}
+"+"                 {if(printLex)printf("PLUS\n");column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return PLUS;}}
+"}"                 {if(printLex)printf("RBRACE\n");column+=yyleng; if(doYacc)return RBRACE;}
+")"                 {if(printLex)printf("RPAR\n"); column+=yyleng; if(doYacc)return RPAR;}
+"]"                 {if(printLex)printf("RSQ\n"); column+=yyleng; if(doYacc)return RSQ;}
+";"                 {if(printLex)printf("SEMICOLON\n"); column+=yyleng; if(doYacc)return SEMICOLON;}
+"->"                {if(printLex)printf("ARROW\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return ARROW;}}
+"<<"                {if(printLex)printf("LSHIFT\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return LSHIFT;}}
+">>"                {if(printLex)printf("RSHIFT\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return RSHIFT;}}
+"^"                 {if(printLex)printf("XOR\n"); column+=yyleng; if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return XOR;}}
+"boolean"           {if(printLex)printf("BOOL\n"); column+=yyleng;if(doYacc)return BOOL;}
+"class"             {if(printLex)printf("CLASS\n"); column+=yyleng;if(doYacc)return CLASS;}
+".length"           {if(printLex)printf("DOTLENGTH\n"); column+=yyleng;if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return DOTLENGTH;}}
+"double"            {if(printLex)printf("DOUBLE\n"); column+=yyleng;if(doYacc)return DOUBLE;}
+"else"              {if(printLex)printf("ELSE\n"); column+=yyleng; if(doYacc)return ELSE;}
+"if"                {if(printLex)printf("IF\n"); column+=yyleng;if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return IF;}}
+"int"               {if(printLex)printf("INT\n"); column+=yyleng;if(doYacc)return INT;}
+"System.out.print"  {if(printLex)printf("PRINT\n"); column+=yyleng;if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return PRINT;}}
+"Integer.parseInt"  {if(printLex)printf("PARSEINT\n"); column+=yyleng;if(doYacc){yylval.value = createToken(yytext, line, column-strlen(yytext)); return PARSEINT;}}
+"return"            {if(printLex)printf("RETURN\n"); column+=yyleng;if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext)); return RETURN;}}
+"static"            {if(printLex)printf("STATIC\n"); column+=yyleng;if(doYacc)return STATIC;}
+"String"            {if(printLex)printf("STRING\n"); column+=yyleng;if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext));return STRING;}}
+"void"              {if(printLex)printf("VOID\n"); column+=yyleng;if(doYacc){yylval.value = createToken(yytext, line, column-strlen(yytext)); return VOID;}}
+"public"            {if(printLex)printf("PUBLIC\n"); column+=yyleng;if(doYacc)return PUBLIC;}
+"while"             {if(printLex)printf("WHILE\n"); column+=yyleng;if(doYacc){yylval.value = createToken(NULL, line, column-strlen(yytext)); return WHILE;}}
+{RESERVED}          {if(printLex)printf("RESERVED(%s)\n",yytext); column+=yyleng;if(doYacc){yylval.value = createToken(yytext, line, column-strlen(yytext)); return RESERVED;}}
+{SPACE}             {column+=yyleng;}
+"\f"                {column+=yyleng;}
+{NEWLINE}           {line+=1; column=1;}
+{ID}                {if(printLex)printf("ID(%s)\n",yytext); column+=yyleng;
                                         if(doYacc) {
-											yylval.id = strdup(yytext);
+											yylval.value = createToken(yytext, line, column);
 											return ID;
 										}}
-{INTLIT}            {if(printLex)printf("INTLIT(%s)\n",yytext); col+=yyleng;
+{INTLIT}            {if(printLex)printf("INTLIT(%s)\n",yytext); column+=yyleng;
                                      if(doYacc) {
-											yylval.id = strdup(yytext);
+											yylval.value = createToken(yytext, line, column);
 											 return INTLIT;
 										}}
-{REALLIT}           {if(printLex)printf("REALLIT(%s)\n",yytext); col+=yyleng;
+{REALLIT}           {if(printLex)printf("REALLIT(%s)\n",yytext); column+=yyleng;
                                             if(doYacc) {
-											yylval.id = strdup(yytext);
+											yylval.value = createToken(yytext, line, column);
 											return REALLIT;
 										}}
 
-.                   {printf("Line %d, col %d: illegal character (%s)\n", line,col,yytext); col+=yyleng;}
+.                   {printf("Line %d, column %d: illegal character (%s)\n", line,column,yytext); column+=yyleng;}
 
 
 %%
 
 void yyerror(const char *s) { 
-     printf ("Line %d, col %d: %s: %s\n", line, (int)(col-strlen(yytext)), s, yytext);
+     printf ("Line %d, column %d: %s: %s\n", line, (int)(column-strlen(yytext)), s, yytext);
 }
 
 int yywrap() {
@@ -179,13 +188,24 @@ int main(int argc,char* argv[]){
 		else if(strcmp(argv[1],"-s")==0){
 			doYacc=true;
 			printLex=false;
+			global_table = NULL;
+			local_table = NULL;
 			yyparse();
-			check_program(root);
-			print_tabela();
+
+			if(flag_erro == 0){
+				create_semantic_table(root);
+				print_table_global(global_table);
+				print_tables_local(local_table);
+				printAnotedAST(root,0);
+				clearTables(global_table, local_table);
+			}
 			freeTree(root);
+		}
+
+			
 
 		}
-	}
+	
     else {
 		printLex=false;
         doYacc=true;
