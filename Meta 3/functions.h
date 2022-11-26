@@ -9,9 +9,9 @@ typedef struct token{
 } token;
 
 typedef struct Node{
-    int l;
+    int line;
     int column;
-    char * valor;
+    char * value;
 	char * s_type;
     char *anoted;
     struct Node *child;
@@ -23,9 +23,9 @@ typedef struct Node{
       
 }Node;
 
-token* createToken(char *value, int line, int colunm);
+token* createToken(char *value, int line, int column);
 void freeToken(token *aux);
-Node * newNode(token * val, char * s_type);
+Node * newNode( char * val, char * s_type,int line,int col);
 void add_child(Node* father, Node* child);
 void addBrother(Node* node1, Node* node2);
 void printTree(Node *node, int depth);

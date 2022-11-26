@@ -5,40 +5,32 @@
 
 
 
-Node * newNode( token * val, char * s_type){
+Node * newNode( char * val, char * s_type,int line,int col){
 	Node * new = (Node *) malloc(sizeof(Node));
 	if(val!=NULL){
 	new->s_type = s_type;	
-    new->valor=val->value;
+    new->value=val;
     new->child = NULL;
     new->brother = NULL;
 	new->parent=NULL;
 	new->n_params=0;
-	new->l=val->line;
-	new->column=val->column;
+	new->line=line;
+	new->column=col;
 	new->to_anote=0;
 	
 	new->anoted="";
-	freeToken(val);
+	
 }
-	else{
-	new->s_type = s_type;	
-    new->valor="";
-    new->child = NULL;
-    new->brother = NULL;
-	new->parent=NULL;
-	new->n_params=0;
-	new->l=0;
-	new->column=0;
-	new->to_anote=0;
-	new->anoted="";
-		
-	}
+
+
+
 	
 	
 
     return new;
 }
+
+
 
 void add_child(Node* father, Node*
  novo){
@@ -72,8 +64,8 @@ void printTree(Node *node, int depth){
 				i++;
 			}
 
-    if (strcmp(node->valor,"") != 0) {
-		printf("%s(%s)\n",  node->s_type, node->valor);
+    if (strcmp(node->value,"") != 0) {
+		printf("%s(%s)\n",  node->s_type, node->value);
 	}
 	else {
 		printf("%s\n", node->s_type);
