@@ -1,0 +1,439 @@
+===== Class LocalVariables Symbol Table =====
+factorial_mas_com_muitos_mais_carateres_para_ver_se_a_memoria_esta_bem		int
+factorial_mas_com_muitos_mais_carateres_para_ver_se_a_memoria_esta_bem	(int,int,double)	void
+operators	(int,int)	int
+operators2	(int,int)	int
+n		boolean
+priority	(String[])	void
+
+===== Method factorial_mas_com_muitos_mais_carateres_para_ver_se_a_memoria_esta_bem(int,int,double) Symbol Table =====
+return		void
+n		int	param
+x		int	param
+y		double	param
+local_mas_com_muitos_mais_carateres_para_ver_se_a_memoria_esta_bem		int
+
+===== Method operators(int,int) Symbol Table =====
+return		int
+n		int	param
+x		int	param
+a		int
+b		int
+c		double
+d		double
+e		boolean
+f		boolean
+
+===== Method operators2(int,int) Symbol Table =====
+return		int
+n		int	param
+x		int	param
+a		int
+b		int
+c		double
+d		double
+e		boolean
+f		boolean
+
+===== Method priority(String[]) Symbol Table =====
+return		void
+args		String[]	param
+n		double
+a		int
+
+Program
+..Id(LocalVariables)
+..FieldDecl
+....Int
+....Id(factorial_mas_com_muitos_mais_carateres_para_ver_se_a_memoria_esta_bem)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(factorial_mas_com_muitos_mais_carateres_para_ver_se_a_memoria_esta_bem)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(n)
+........ParamDecl
+..........Int
+..........Id(x)
+........ParamDecl
+..........Double
+..........Id(y)
+....MethodBody
+......VarDecl
+........Int
+........Id(local_mas_com_muitos_mais_carateres_para_ver_se_a_memoria_esta_bem)
+..MethodDecl
+....MethodHeader
+......Int
+......Id(operators)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(n)
+........ParamDecl
+..........Int
+..........Id(x)
+....MethodBody
+......VarDecl
+........Int
+........Id(a)
+......VarDecl
+........Int
+........Id(b)
+......VarDecl
+........Double
+........Id(c)
+......VarDecl
+........Double
+........Id(d)
+......VarDecl
+........Bool
+........Id(e)
+......VarDecl
+........Bool
+........Id(f)
+......Assign - int
+........Id(a) - int
+........DecLit(1) - int
+......Assign - int
+........Id(b) - int
+........DecLit(1) - int
+......Assign - double
+........Id(c) - double
+........RealLit(2.0) - double
+......Assign - double
+........Id(d) - double
+........RealLit(3.0) - double
+......Assign - boolean
+........Id(e) - boolean
+........BoolLit(true) - boolean
+......Assign - boolean
+........Id(f) - boolean
+........BoolLit(false) - boolean
+......Assign - int
+........Id(a) - int
+........Add - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - int
+........Id(a) - int
+........Sub - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - int
+........Id(a) - int
+........Mul - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - int
+........Id(a) - int
+........Div - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - int
+........Id(a) - int
+........Mod - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Add - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Sub - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Mul - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Div - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Mod - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Add - double
+..........Id(c) - double
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Sub - double
+..........Id(c) - double
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Mul - double
+..........Id(c) - double
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Div - double
+..........Id(c) - double
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Mod - double
+..........Id(c) - double
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Add - double
+..........Id(b) - int
+..........Id(c) - double
+......Assign - double
+........Id(c) - double
+........Sub - double
+..........Id(b) - int
+..........Id(c) - double
+......Assign - double
+........Id(c) - double
+........Mul - double
+..........Id(b) - int
+..........Id(c) - double
+......Assign - double
+........Id(c) - double
+........Div - double
+..........Id(b) - int
+..........Id(c) - double
+......Assign - double
+........Id(c) - double
+........Mod - double
+..........Id(b) - int
+..........Id(c) - double
+......Assign - double
+........Id(c) - double
+........Add - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Sub - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Mul - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Div - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Mod - int
+..........Id(a) - int
+..........Id(b) - int
+......Assign - boolean
+........Id(e) - boolean
+........Gt - boolean
+..........Id(a) - int
+..........Id(c) - double
+......Assign - boolean
+........Id(e) - boolean
+........Ge - boolean
+..........Id(a) - int
+..........Id(c) - double
+......Assign - boolean
+........Id(e) - boolean
+........Lt - boolean
+..........Id(a) - int
+..........Id(c) - double
+......Assign - boolean
+........Id(e) - boolean
+........Le - boolean
+..........Id(a) - int
+..........Id(c) - double
+......Assign - boolean
+........Id(e) - boolean
+........Eq - boolean
+..........Id(a) - int
+..........Id(c) - double
+......Assign - boolean
+........Id(e) - boolean
+........Ne - boolean
+..........Id(a) - int
+..........Id(c) - double
+......Assign - boolean
+........Id(e) - boolean
+........Gt - boolean
+..........Id(c) - double
+..........Id(a) - int
+......Assign - boolean
+........Id(e) - boolean
+........Ge - boolean
+..........Id(c) - double
+..........Id(a) - int
+......Assign - boolean
+........Id(e) - boolean
+........Lt - boolean
+..........Id(c) - double
+..........Id(a) - int
+......Assign - boolean
+........Id(e) - boolean
+........Le - boolean
+..........Id(c) - double
+..........Id(a) - int
+......Assign - boolean
+........Id(e) - boolean
+........Eq - boolean
+..........Id(c) - double
+..........Id(a) - int
+......Assign - boolean
+........Id(e) - boolean
+........Ne - boolean
+..........Id(c) - double
+..........Id(a) - int
+......Return
+........Id(a) - int
+..MethodDecl
+....MethodHeader
+......Int
+......Id(operators2)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(n)
+........ParamDecl
+..........Int
+..........Id(x)
+....MethodBody
+......VarDecl
+........Int
+........Id(a)
+......VarDecl
+........Int
+........Id(b)
+......VarDecl
+........Double
+........Id(c)
+......VarDecl
+........Double
+........Id(d)
+......VarDecl
+........Bool
+........Id(e)
+......VarDecl
+........Bool
+........Id(f)
+......Assign - int
+........Id(a) - int
+........DecLit(2) - int
+......Assign - int
+........Id(b) - int
+........DecLit(3) - int
+......Assign - double
+........Id(c) - double
+........DecLit(2) - int
+......Assign - int
+........Id(a) - int
+........Add - int
+..........DecLit(2) - int
+..........DecLit(2) - int
+......Assign - int
+........Id(a) - int
+........Sub - int
+..........Id(a) - int
+..........DecLit(2) - int
+......Assign - int
+........Id(a) - int
+........Mul - int
+..........DecLit(2) - int
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Add - double
+..........RealLit(2.0) - double
+..........Id(b) - int
+......Assign - double
+........Id(c) - double
+........Sub - double
+..........Id(a) - int
+..........RealLit(2.0) - double
+......Assign - double
+........Id(c) - double
+........Mul - double
+..........RealLit(2.0) - double
+..........RealLit(2.0) - double
+......Assign - double
+........Id(c) - double
+........Div - int
+..........Id(a) - int
+..........DecLit(2) - int
+......Assign - double
+........Id(c) - double
+........Mod - double
+..........DecLit(2) - int
+..........RealLit(2.0) - double
+......Assign - boolean
+........Id(e) - boolean
+........Eq - boolean
+..........BoolLit(true) - boolean
+..........BoolLit(false) - boolean
+......Assign - boolean
+........Id(e) - boolean
+........Ne - boolean
+..........BoolLit(false) - boolean
+..........BoolLit(false) - boolean
+......Return
+........Id(a) - int
+..FieldDecl
+....Bool
+....Id(n)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(priority)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Double
+........Id(n)
+......VarDecl
+........Int
+........Id(a)
+......Assign - int
+........Id(a) - int
+........DecLit(1) - int
+......Assign - double
+........Id(n) - double
+........DecLit(0) - int
+......Assign - double
+........Id(n) - double
+........Add - double
+..........Id(a) - int
+..........Id(n) - double
+......Assign - double
+........Id(n) - double
+........Sub - int
+..........Id(a) - int
+..........Id(a) - int
+......ParseArgs - int
+........Id(args) - String[]
+........DecLit(0) - int
+......Print
+........Id(n) - double
+......Print
+........ParseArgs - int
+..........Id(args) - String[]
+..........DecLit(0) - int
+......Print
+........Length - int
+..........Id(args) - String[]
+......Return

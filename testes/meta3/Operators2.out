@@ -1,0 +1,81 @@
+Line 8, col 17: Operator * cannot be applied to types none, double
+Line 8, col 10: Operator = cannot be applied to types double, undef
+Line 16, col 9: Cannot find symbol operators()
+===== Class Factorial Symbol Table =====
+operators	(int)	int
+main	(String[])	void
+
+===== Method operators(int) Symbol Table =====
+return		int
+n		int	param
+x		int
+b		int
+a		int
+y		double
+z		boolean
+t		boolean
+
+===== Method main(String[]) Symbol Table =====
+return		void
+args		String[]	param
+
+Program
+..Id(Factorial)
+..MethodDecl
+....MethodHeader
+......Int
+......Id(operators)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(n)
+....MethodBody
+......VarDecl
+........Int
+........Id(x)
+......VarDecl
+........Int
+........Id(b)
+......VarDecl
+........Int
+........Id(a)
+......VarDecl
+........Double
+........Id(y)
+......VarDecl
+........Bool
+........Id(z)
+......VarDecl
+........Bool
+........Id(t)
+......If
+........And - boolean
+..........Eq - boolean
+............Id(x) - int
+............Id(b) - int
+..........Eq - boolean
+............Id(z) - boolean
+............Id(t) - boolean
+........Assign - double
+..........Id(y) - double
+..........Mul - undef
+............Lshift
+..............Id(a)
+..............Id(b)
+............RealLit(1.0) - double
+........Assign - double
+..........Id(y) - double
+..........Mod - double
+............Id(a) - int
+............Id(y) - double
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......Call - undef
+........Id(operators) - undef

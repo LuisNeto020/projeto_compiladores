@@ -1,0 +1,475 @@
+Line 18, col 15: Operator < cannot be applied to types int, boolean
+Line 19, col 15: Operator <= cannot be applied to types int, boolean
+Line 20, col 15: Operator > cannot be applied to types int, boolean
+Line 21, col 15: Operator >= cannot be applied to types int, boolean
+Line 30, col 15: Operator < cannot be applied to types int, boolean
+Line 31, col 15: Operator <= cannot be applied to types int, boolean
+Line 32, col 15: Operator > cannot be applied to types int, boolean
+Line 33, col 15: Operator >= cannot be applied to types int, boolean
+Line 42, col 15: Operator < cannot be applied to types double, boolean
+Line 43, col 15: Operator <= cannot be applied to types double, boolean
+Line 44, col 15: Operator > cannot be applied to types double, boolean
+Line 45, col 15: Operator >= cannot be applied to types double, boolean
+Line 54, col 15: Operator < cannot be applied to types boolean, int
+Line 55, col 15: Operator <= cannot be applied to types boolean, int
+Line 56, col 15: Operator > cannot be applied to types boolean, int
+Line 57, col 15: Operator >= cannot be applied to types boolean, int
+Line 58, col 15: Operator < cannot be applied to types boolean, double
+Line 59, col 15: Operator <= cannot be applied to types boolean, double
+Line 60, col 15: Operator > cannot be applied to types boolean, double
+Line 61, col 15: Operator >= cannot be applied to types boolean, double
+Line 62, col 15: Operator < cannot be applied to types boolean, boolean
+Line 63, col 15: Operator <= cannot be applied to types boolean, boolean
+Line 64, col 15: Operator > cannot be applied to types boolean, boolean
+Line 65, col 15: Operator >= cannot be applied to types boolean, boolean
+Line 74, col 15: Operator < cannot be applied to types int, boolean
+Line 75, col 15: Operator <= cannot be applied to types int, boolean
+Line 76, col 15: Operator > cannot be applied to types int, boolean
+Line 77, col 15: Operator >= cannot be applied to types int, boolean
+===== Class time_is_relative Symbol Table =====
+main	(String[])	void
+
+===== Method main(String[]) Symbol Table =====
+return		void
+args		String[]	param
+i		int
+d		double
+b		boolean
+
+Program
+..Id(time_is_relative)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Int
+........Id(i)
+......VarDecl
+........Double
+........Id(d)
+......VarDecl
+........Bool
+........Id(b)
+......Assign - int
+........Id(i) - int
+........DecLit(0) - int
+......Assign - double
+........Id(d) - double
+........RealLit(1.1) - double
+......Assign - boolean
+........Id(b) - boolean
+........BoolLit(true) - boolean
+......If
+........Lt - boolean
+..........Id(i) - int
+..........Id(i) - int
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(i) - int
+..........Id(i) - int
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(i) - int
+..........Id(i) - int
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(i) - int
+..........Id(i) - int
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(i) - int
+..........Id(d) - double
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(i) - int
+..........Id(d) - double
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(i) - int
+..........Id(d) - double
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(i) - int
+..........Id(d) - double
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(i) - int
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(i) - int
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(i) - int
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(i) - int
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(i) - int
+..........DecLit(0) - int
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(i) - int
+..........DecLit(0) - int
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(i) - int
+..........DecLit(0) - int
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(i) - int
+..........DecLit(0) - int
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(i) - int
+..........RealLit(1.1) - double
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(i) - int
+..........RealLit(1.1) - double
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(i) - int
+..........RealLit(1.1) - double
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(i) - int
+..........RealLit(1.1) - double
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(i) - int
+..........BoolLit(true) - boolean
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(i) - int
+..........BoolLit(true) - boolean
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(i) - int
+..........BoolLit(true) - boolean
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(i) - int
+..........BoolLit(true) - boolean
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(d) - double
+..........Id(i) - int
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(d) - double
+..........Id(i) - int
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(d) - double
+..........Id(i) - int
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(d) - double
+..........Id(i) - int
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(d) - double
+..........Id(d) - double
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(d) - double
+..........Id(d) - double
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(d) - double
+..........Id(d) - double
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(d) - double
+..........Id(d) - double
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(d) - double
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(d) - double
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(d) - double
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(d) - double
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(d) - double
+..........DecLit(0) - int
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(d) - double
+..........DecLit(0) - int
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(d) - double
+..........DecLit(0) - int
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(d) - double
+..........DecLit(0) - int
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(d) - double
+..........RealLit(1.1) - double
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(d) - double
+..........RealLit(1.1) - double
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(d) - double
+..........RealLit(1.1) - double
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(d) - double
+..........RealLit(1.1) - double
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(b) - boolean
+..........Id(i) - int
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(b) - boolean
+..........Id(i) - int
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(b) - boolean
+..........Id(i) - int
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(b) - boolean
+..........Id(i) - int
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(b) - boolean
+..........Id(d) - double
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(b) - boolean
+..........Id(d) - double
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(b) - boolean
+..........Id(d) - double
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(b) - boolean
+..........Id(d) - double
+........Block
+........Block
+......If
+........Lt - boolean
+..........Id(b) - boolean
+..........BoolLit(true) - boolean
+........Block
+........Block
+......If
+........Le - boolean
+..........Id(b) - boolean
+..........BoolLit(true) - boolean
+........Block
+........Block
+......If
+........Gt - boolean
+..........Id(b) - boolean
+..........BoolLit(true) - boolean
+........Block
+........Block
+......If
+........Ge - boolean
+..........Id(b) - boolean
+..........BoolLit(true) - boolean
+........Block
+........Block
+......If
+........Lt - boolean
+..........DecLit(0) - int
+..........Id(i) - int
+........Block
+........Block
+......If
+........Le - boolean
+..........DecLit(0) - int
+..........Id(i) - int
+........Block
+........Block
+......If
+........Gt - boolean
+..........DecLit(0) - int
+..........Id(i) - int
+........Block
+........Block
+......If
+........Ge - boolean
+..........DecLit(0) - int
+..........Id(i) - int
+........Block
+........Block
+......If
+........Lt - boolean
+..........DecLit(0) - int
+..........Id(d) - double
+........Block
+........Block
+......If
+........Le - boolean
+..........DecLit(0) - int
+..........Id(d) - double
+........Block
+........Block
+......If
+........Gt - boolean
+..........DecLit(0) - int
+..........Id(d) - double
+........Block
+........Block
+......If
+........Ge - boolean
+..........DecLit(0) - int
+..........Id(d) - double
+........Block
+........Block
+......If
+........Lt - boolean
+..........DecLit(0) - int
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Le - boolean
+..........DecLit(0) - int
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Gt - boolean
+..........DecLit(0) - int
+..........Id(b) - boolean
+........Block
+........Block
+......If
+........Ge - boolean
+..........DecLit(0) - int
+..........Id(b) - boolean
+........Block
+........Block

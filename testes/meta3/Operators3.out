@@ -1,0 +1,84 @@
+Line 14, col 22: Operator <= cannot be applied to types double, none
+===== Class Sum Symbol Table =====
+operator	()	void
+main	()	void
+
+===== Method operator() Symbol Table =====
+return		void
+
+===== Method main() Symbol Table =====
+return		void
+a		int
+b		int
+c		int
+d		double
+e		double
+x		boolean
+y		boolean
+
+Program
+..Id(Sum)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(operator)
+......MethodParams
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+....MethodBody
+......VarDecl
+........Int
+........Id(a)
+......VarDecl
+........Int
+........Id(b)
+......VarDecl
+........Int
+........Id(c)
+......VarDecl
+........Double
+........Id(d)
+......VarDecl
+........Double
+........Id(e)
+......VarDecl
+........Bool
+........Id(x)
+......VarDecl
+........Bool
+........Id(y)
+......If
+........Eq - boolean
+..........Id(x) - boolean
+..........Id(y) - boolean
+........If
+..........Eq - boolean
+............Id(a) - int
+............Id(b) - int
+..........If
+............Eq - boolean
+..............Id(d) - double
+..............Id(b) - int
+............Assign - boolean
+..............Id(x) - boolean
+..............Or - boolean
+................Le - boolean
+..................Mul - double
+....................Id(d) - double
+....................Id(e) - double
+..................Rshift
+....................Id(a)
+....................Id(c)
+................Eq - boolean
+..................Id(x) - boolean
+..................Not - boolean
+....................Id(y) - boolean
+............Block
+..........Block
+........Block
+......Call - void
+........Id(operator) - ()

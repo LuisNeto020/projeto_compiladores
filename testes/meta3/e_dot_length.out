@@ -1,0 +1,61 @@
+Line 8, col 14: Operator .length cannot be applied to type int
+Line 9, col 14: Operator .length cannot be applied to type boolean
+Line 10, col 14: Operator .length cannot be applied to type double
+Line 12, col 13: Cannot find symbol undef
+Line 12, col 18: Operator .length cannot be applied to type undef
+Line 14, col 14: Operator .length cannot be applied to type int
+Line 14, col 11: Operator = cannot be applied to types boolean, int
+===== Class ClassTeste Symbol Table =====
+main	(String[])	void
+
+===== Method main(String[]) Symbol Table =====
+return		void
+args		String[]	param
+b		boolean
+i		int
+d		double
+
+Program
+..Id(ClassTeste)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Bool
+........Id(b)
+......VarDecl
+........Int
+........Id(i)
+......VarDecl
+........Double
+........Id(d)
+......Assign - int
+........Id(i) - int
+........Length - int
+..........Id(i) - int
+......Assign - int
+........Id(i) - int
+........Length - int
+..........Id(b) - boolean
+......Assign - int
+........Id(i) - int
+........Length - int
+..........Id(d) - double
+......Assign - int
+........Id(i) - int
+........Length - int
+..........Id(args) - String[]
+......Assign - int
+........Id(i) - int
+........Length - int
+..........Id(undef) - undef
+......Assign - boolean
+........Id(b) - boolean
+........Length - int
+..........Id(i) - int

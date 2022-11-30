@@ -1,0 +1,469 @@
+Line 24, col 24: Symbol main(String[]) already defined
+Line 32, col 22: Symbol funcao3(int,int,double) already defined
+Line 34, col 22: Symbol funcao3(int,int,double) already defined
+Line 43, col 41: Symbol i already defined
+Line 55, col 40: Symbol i already defined
+Line 57, col 26: Symbol funcao already defined
+Line 10, col 9: Operator + cannot be applied to types boolean, boolean
+Line 10, col 15: Operator == cannot be applied to types undef, int
+Line 13, col 6: Operator = cannot be applied to types boolean, int
+Line 21, col 11: Operator = cannot be applied to types int, none
+Line 62, col 10: Operator = cannot be applied to types boolean, double
+Line 63, col 10: Operator = cannot be applied to types int, double
+Line 64, col 10: Operator = cannot be applied to types int, double
+Line 66, col 13: Operator Integer.parseInt cannot be applied to types boolean, double
+Line 69, col 12: Operator = cannot be applied to types int, boolean
+===== Class Java Symbol Table =====
+funcao2	(String[])	void
+x	(double,int)	double
+main	(String[])	void
+a		boolean
+funcao3	(int,int,double)	int
+funcao3	(int,int,boolean)	boolean
+funcao		boolean
+funcao	(int,double)	int
+funcao	(double,int)	void
+funcao	(double,double)	double
+funcao	(int,int)	int
+maine	()	void
+ola56	(int)	int
+ola56		boolean
+
+===== Method funcao2(String[]) Symbol Table =====
+return		void
+args		String[]	param
+a		boolean
+b		boolean
+c		int
+d		int
+
+===== Method x(double,int) Symbol Table =====
+return		double
+x		double	param
+a		int	param
+
+===== Method main(String[]) Symbol Table =====
+return		void
+args		String[]	param
+x		int
+b		int
+
+===== Method funcao3(int,int,double) Symbol Table =====
+return		int
+a		int	param
+b		int	param
+c		double	param
+
+===== Method funcao3(int,int,boolean) Symbol Table =====
+return		boolean
+a		int	param
+b		int	param
+c		boolean	param
+x		int
+y		int
+z		int
+w		int
+
+===== Method funcao(int,double) Symbol Table =====
+return		int
+i		int	param
+
+===== Method funcao(double,int) Symbol Table =====
+return		void
+i		double	param
+funcao		int	param
+m		boolean
+
+===== Method funcao(double,double) Symbol Table =====
+return		double
+i		double	param
+funcao		double	param
+m		int
+
+===== Method funcao(int,int) Symbol Table =====
+return		int
+i		int	param
+
+===== Method maine() Symbol Table =====
+return		void
+a		int
+b		int
+c		int
+d		int
+e		double
+f		double
+g		double
+h		double
+i		boolean
+j		boolean
+k		boolean
+l		boolean
+
+===== Method ola56(int) Symbol Table =====
+return		int
+x1		int	param
+
+Program
+..Id(Java)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(funcao2)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......ParseArgs - int
+........Id(args) - String[]
+........DecLit(0) - int
+......VarDecl
+........Bool
+........Id(a)
+......VarDecl
+........Bool
+........Id(b)
+......VarDecl
+........Int
+........Id(c)
+......VarDecl
+........Int
+........Id(d)
+......Assign - boolean
+........Id(a) - boolean
+........BoolLit(true) - boolean
+......Assign - boolean
+........Id(b) - boolean
+........BoolLit(true) - boolean
+......Assign - int
+........Id(c) - int
+........DecLit(1) - int
+......Assign - int
+........Id(d) - int
+........DecLit(1) - int
+......If
+........Eq - boolean
+..........Add - undef
+............Id(a) - boolean
+............BoolLit(true) - boolean
+..........DecLit(2) - int
+........Print
+..........StrLit("olaaaa\n") - String
+........Block
+......Assign - boolean
+........Id(a) - boolean
+........Length - int
+..........Id(args) - String[]
+..MethodDecl
+....MethodHeader
+......Double
+......Id(x)
+......MethodParams
+........ParamDecl
+..........Double
+..........Id(x)
+........ParamDecl
+..........Int
+..........Id(a)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Int
+........Id(x)
+......VarDecl
+........Int
+........Id(b)
+......Assign - int
+........Id(x) - int
+........Lshift
+..........DecLit(1)
+..........Mul
+............Id(x)
+............DecLit(1)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Int
+........Id(x)
+......Assign
+........Id(a)
+........Id(x)
+..FieldDecl
+....Bool
+....Id(a)
+..MethodDecl
+....MethodHeader
+......Int
+......Id(funcao3)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(a)
+........ParamDecl
+..........Int
+..........Id(b)
+........ParamDecl
+..........Double
+..........Id(c)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Int
+......Id(funcao3)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(a)
+........ParamDecl
+..........Int
+..........Id(b)
+........ParamDecl
+..........Double
+..........Id(c)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Int
+......Id(funcao3)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(a)
+........ParamDecl
+..........Int
+..........Id(b)
+........ParamDecl
+..........Double
+..........Id(c)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Bool
+......Id(funcao3)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(a)
+........ParamDecl
+..........Int
+..........Id(b)
+........ParamDecl
+..........Bool
+..........Id(c)
+....MethodBody
+......VarDecl
+........Int
+........Id(x)
+......VarDecl
+........Int
+........Id(y)
+......VarDecl
+........Int
+........Id(z)
+......VarDecl
+........Int
+........Id(w)
+..FieldDecl
+....Bool
+....Id(funcao)
+..MethodDecl
+....MethodHeader
+......Int
+......Id(funcao)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(i)
+........ParamDecl
+..........Double
+..........Id(i)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Void
+......Id(funcao)
+......MethodParams
+........ParamDecl
+..........Double
+..........Id(i)
+........ParamDecl
+..........Int
+..........Id(funcao)
+....MethodBody
+......VarDecl
+........Bool
+........Id(m)
+..MethodDecl
+....MethodHeader
+......Double
+......Id(funcao)
+......MethodParams
+........ParamDecl
+..........Double
+..........Id(i)
+........ParamDecl
+..........Double
+..........Id(funcao)
+....MethodBody
+......VarDecl
+........Int
+........Id(m)
+......If
+........Eq - boolean
+..........Id(m) - int
+..........DecLit(1) - int
+........Call - int
+..........Id(funcao) - (int,int)
+..........Id(m) - int
+..........Id(m) - int
+........Block
+..MethodDecl
+....MethodHeader
+......Int
+......Id(funcao)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(i)
+........ParamDecl
+..........Int
+..........Id(i)
+....MethodBody
+..FieldDecl
+....Double
+....Id(funcao)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(maine)
+......MethodParams
+....MethodBody
+......VarDecl
+........Int
+........Id(a)
+......VarDecl
+........Int
+........Id(b)
+......VarDecl
+........Int
+........Id(c)
+......VarDecl
+........Int
+........Id(d)
+......VarDecl
+........Double
+........Id(e)
+......VarDecl
+........Double
+........Id(f)
+......VarDecl
+........Double
+........Id(g)
+......VarDecl
+........Double
+........Id(h)
+......VarDecl
+........Bool
+........Id(i)
+......VarDecl
+........Bool
+........Id(j)
+......VarDecl
+........Bool
+........Id(k)
+......VarDecl
+........Bool
+........Id(l)
+......Assign - boolean
+........Id(k) - boolean
+........Add - double
+..........Add - int
+............DecLit(1) - int
+............DecLit(1) - int
+..........Mod - double
+............Mul - double
+..............Div - double
+................Id(e) - double
+................DecLit(4) - int
+..............Minus - double
+................RealLit(4.3) - double
+............DecLit(10) - int
+......Assign - int
+........Id(a) - int
+........Add - double
+..........Add - int
+............DecLit(1) - int
+............DecLit(1) - int
+..........Mod - double
+............Mul - double
+..............Div - double
+................Id(e) - double
+................DecLit(4) - int
+..............Minus - double
+................RealLit(4.3) - double
+............DecLit(10) - int
+......Assign - int
+........Id(b) - int
+........Add - double
+..........Add - int
+............DecLit(1) - int
+............DecLit(1) - int
+..........Mod - double
+............Mul - double
+..............Div - double
+................Id(e) - double
+................DecLit(4) - int
+..............Minus - double
+................RealLit(4.3) - double
+............DecLit(10) - int
+......Assign - boolean
+........Id(i) - boolean
+........Not - boolean
+..........Not - boolean
+............Not - boolean
+..............Not - boolean
+................Not - boolean
+..................Not - boolean
+....................Not - boolean
+......................Id(l) - boolean
+......Assign - double
+........Id(f) - double
+........ParseArgs - int
+..........Id(i) - boolean
+..........Add - double
+............Add - double
+..............DecLit(1) - int
+..............RealLit(1.0) - double
+............DecLit(2) - int
+..MethodDecl
+....MethodHeader
+......Int
+......Id(ola56)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(x1)
+....MethodBody
+......Assign - int
+........Id(x1) - int
+........Id(ola56) - boolean
+......Print
+........StrLit("") - String
+..FieldDecl
+....Bool
+....Id(ola56)

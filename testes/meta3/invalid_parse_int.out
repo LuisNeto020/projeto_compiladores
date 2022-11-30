@@ -1,0 +1,89 @@
+Line 10, col 26: Cannot find symbol undef
+Line 10, col 32: Cannot find symbol undef
+Line 10, col 9: Operator Integer.parseInt cannot be applied to types undef, undef
+Line 11, col 26: Cannot find symbol undef
+Line 11, col 9: Operator Integer.parseInt cannot be applied to types undef, int
+Line 12, col 26: Cannot find symbol undef
+Line 12, col 9: Operator Integer.parseInt cannot be applied to types undef, int
+Line 13, col 26: Cannot find symbol undef
+Line 13, col 9: Operator Integer.parseInt cannot be applied to types undef, int
+Line 14, col 26: Cannot find symbol undef
+Line 14, col 9: Operator Integer.parseInt cannot be applied to types undef, int
+Line 15, col 26: Cannot find symbol undef
+Line 15, col 9: Operator Integer.parseInt cannot be applied to types undef, double
+Line 16, col 26: Cannot find symbol undef
+Line 16, col 9: Operator Integer.parseInt cannot be applied to types undef, double
+Line 17, col 26: Cannot find symbol undef
+Line 17, col 9: Operator Integer.parseInt cannot be applied to types undef, boolean
+Line 18, col 26: Cannot find symbol undef
+Line 18, col 9: Operator Integer.parseInt cannot be applied to types undef, boolean
+Line 19, col 26: Cannot find symbol undef
+Line 19, col 9: Operator Integer.parseInt cannot be applied to types undef, String[]
+Line 21, col 31: Cannot find symbol undef
+Line 21, col 9: Operator Integer.parseInt cannot be applied to types String[], undef
+===== Class ClassTeste Symbol Table =====
+main	(String[])	void
+
+===== Method main(String[]) Symbol Table =====
+return		void
+args		String[]	param
+b		boolean
+i		int
+d		double
+
+Program
+..Id(ClassTeste)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Bool
+........Id(b)
+......VarDecl
+........Int
+........Id(i)
+......VarDecl
+........Double
+........Id(d)
+......ParseArgs - int
+........Id(undef) - undef
+........Id(undef) - undef
+......ParseArgs - int
+........Id(undef) - undef
+........Lshift - int
+..........DecLit(1) - int
+..........DecLit(1) - int
+......ParseArgs - int
+........Id(undef) - undef
+........DecLit(0) - int
+......ParseArgs - int
+........Id(undef) - undef
+........Id(i) - int
+......ParseArgs - int
+........Id(undef) - undef
+........Length - int
+..........Id(args) - String[]
+......ParseArgs - int
+........Id(undef) - undef
+........RealLit(0.0) - double
+......ParseArgs - int
+........Id(undef) - undef
+........Id(d) - double
+......ParseArgs - int
+........Id(undef) - undef
+........BoolLit(true) - boolean
+......ParseArgs - int
+........Id(undef) - undef
+........Id(b) - boolean
+......ParseArgs - int
+........Id(undef) - undef
+........Id(args) - String[]
+......ParseArgs - int
+........Id(args) - String[]
+........Id(undef) - undef

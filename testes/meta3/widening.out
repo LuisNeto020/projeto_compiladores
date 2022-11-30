@@ -1,0 +1,201 @@
+Line 10, col 11: Operator = cannot be applied to types double, boolean
+Line 15, col 15: Operator * cannot be applied to types int, boolean
+Line 15, col 11: Operator = cannot be applied to types double, undef
+Line 23, col 13: Cannot find symbol fun_di(int,double)
+Line 23, col 11: Operator = cannot be applied to types double, undef
+Line 24, col 13: Cannot find symbol fun_di(double,double)
+Line 24, col 11: Operator = cannot be applied to types double, undef
+Line 27, col 13: Cannot find symbol fun_ii(double,int)
+Line 27, col 11: Operator = cannot be applied to types double, undef
+Line 28, col 13: Cannot find symbol fun_ii(int,double)
+Line 28, col 11: Operator = cannot be applied to types double, undef
+Line 29, col 13: Cannot find symbol fun_ii(double,double)
+Line 29, col 11: Operator = cannot be applied to types double, undef
+===== Class Narrow Symbol Table =====
+main	(String[])	void
+fun_dd	(double,double)	int
+fun_di	(double,int)	int
+fun_ii	(int,int)	int
+
+===== Method main(String[]) Symbol Table =====
+return		void
+args		String[]	param
+i		int
+d		double
+b		boolean
+
+===== Method fun_dd(double,double) Symbol Table =====
+return		int
+a		double	param
+b		double	param
+
+===== Method fun_di(double,int) Symbol Table =====
+return		int
+a		double	param
+b		int	param
+
+===== Method fun_ii(int,int) Symbol Table =====
+return		int
+a		int	param
+b		int	param
+
+Program
+..Id(Narrow)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(main)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(args)
+....MethodBody
+......VarDecl
+........Int
+........Id(i)
+......VarDecl
+........Double
+........Id(d)
+......VarDecl
+........Bool
+........Id(b)
+......Assign - double
+........Id(d) - double
+........RealLit(1.1) - double
+......Assign - double
+........Id(d) - double
+........DecLit(1) - int
+......Assign - double
+........Id(d) - double
+........Id(i) - int
+......Assign - double
+........Id(d) - double
+........Id(b) - boolean
+......Assign - double
+........Id(d) - double
+........Mul - int
+..........Id(i) - int
+..........DecLit(1) - int
+......Assign - double
+........Id(d) - double
+........Mul - double
+..........Id(i) - int
+..........RealLit(1.1) - double
+......Assign - double
+........Id(d) - double
+........Mul - double
+..........Id(i) - int
+..........Id(d) - double
+......Assign - double
+........Id(d) - double
+........Mul - undef
+..........Id(i) - int
+..........Id(b) - boolean
+......Assign - double
+........Id(d) - double
+........Call - int
+..........Id(fun_dd) - (double,double)
+..........DecLit(1) - int
+..........DecLit(2) - int
+......Assign - double
+........Id(d) - double
+........Call - int
+..........Id(fun_dd) - (double,double)
+..........RealLit(3.0) - double
+..........DecLit(4) - int
+......Assign - double
+........Id(d) - double
+........Call - int
+..........Id(fun_dd) - (double,double)
+..........RealLit(5.0) - double
+..........RealLit(6.0) - double
+......Assign - double
+........Id(d) - double
+........Call - int
+..........Id(fun_di) - (double,int)
+..........DecLit(1) - int
+..........DecLit(1) - int
+......Assign - double
+........Id(d) - double
+........Call - int
+..........Id(fun_di) - (double,int)
+..........RealLit(1.0) - double
+..........DecLit(1) - int
+......Assign - double
+........Id(d) - double
+........Call - undef
+..........Id(fun_di) - undef
+..........DecLit(1) - int
+..........RealLit(1.0) - double
+......Assign - double
+........Id(d) - double
+........Call - undef
+..........Id(fun_di) - undef
+..........RealLit(1.0) - double
+..........RealLit(1.0) - double
+......Assign - double
+........Id(d) - double
+........Call - int
+..........Id(fun_ii) - (int,int)
+..........DecLit(1) - int
+..........DecLit(1) - int
+......Assign - double
+........Id(d) - double
+........Call - undef
+..........Id(fun_ii) - undef
+..........RealLit(1.0) - double
+..........DecLit(1) - int
+......Assign - double
+........Id(d) - double
+........Call - undef
+..........Id(fun_ii) - undef
+..........DecLit(1) - int
+..........RealLit(1.0) - double
+......Assign - double
+........Id(d) - double
+........Call - undef
+..........Id(fun_ii) - undef
+..........RealLit(1.0) - double
+..........RealLit(1.0) - double
+..MethodDecl
+....MethodHeader
+......Int
+......Id(fun_dd)
+......MethodParams
+........ParamDecl
+..........Double
+..........Id(a)
+........ParamDecl
+..........Double
+..........Id(b)
+....MethodBody
+......Return
+........DecLit(1) - int
+..MethodDecl
+....MethodHeader
+......Int
+......Id(fun_di)
+......MethodParams
+........ParamDecl
+..........Double
+..........Id(a)
+........ParamDecl
+..........Int
+..........Id(b)
+....MethodBody
+......Return
+........DecLit(1) - int
+..MethodDecl
+....MethodHeader
+......Int
+......Id(fun_ii)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(a)
+........ParamDecl
+..........Int
+..........Id(b)
+....MethodBody
+......Return
+........DecLit(1) - int
