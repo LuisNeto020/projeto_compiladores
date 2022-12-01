@@ -11,6 +11,7 @@
     #include <stdarg.h>
 	#include "y.tab.h"
 	#include "symbol_table.h"
+	int yylex_destroy();
 	#define false 0
     #define true 1
     int column=1; 
@@ -204,11 +205,18 @@ int main(int argc,char* argv[]){
 		}
 	
     else {
+		global_table = NULL;
+		local_table = NULL;
 		printLex=false;
         doYacc=true;
 		yyparse();
+		if(flag_erro == 0){
+			create_semantic_table(root);
+			clearTables(global_table, local_table);
+		}
 		freeTree(root);
 		
 	}
+	//yylex_destroy();
 	return 0;
 }

@@ -1883,7 +1883,7 @@ yyreduce:
 
   case 49: /* MethodInvocation: ID LPAR MethodInvocation2 RPAR  */
 #line 275 "jucompiler.y"
-                                                                                        {(yyval.node) = newNode( NULL, "Call",0,0);
+                                                                                        {(yyval.node) = newNode( NULL, "Call",(yyvsp[-3].value)->line, (yyvsp[-3].value)->column);
 																	aux = newNode( (yyvsp[-3].value)->value, "Id", (yyvsp[-3].value)->line, (yyvsp[-3].value)->column);
 																	add_child((yyval.node), aux);
 																	addBrother(aux, (yyvsp[-1].node));

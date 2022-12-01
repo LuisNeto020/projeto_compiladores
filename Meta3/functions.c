@@ -64,7 +64,7 @@ void addBrother(Node* node1, Node* node2){
         temp=temp->brother;
     }
     temp->brother=node2;
-	temp->parent=node1->parent;
+	node2->parent=node1->parent;
 }
 
 void printTree(Node *node, int depth){

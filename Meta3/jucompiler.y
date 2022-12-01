@@ -272,7 +272,7 @@ StatementPrint:	Expr												{$$ = $1;}
 																	freeToken($1);}
 			;
 
-MethodInvocation:	ID LPAR MethodInvocation2 RPAR					{$$ = newNode( NULL, "Call",0,0);
+MethodInvocation:	ID LPAR MethodInvocation2 RPAR					{$$ = newNode( NULL, "Call",$1->line, $1->column);
 																	aux = newNode( $1->value, "Id", $1->line, $1->column);
 																	add_child($$, aux);
 																	addBrother(aux, $3);

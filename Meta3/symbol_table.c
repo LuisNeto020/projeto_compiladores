@@ -474,9 +474,9 @@ void create_semantic_table(Node* atual){
                                 }
                             }
                             else{
-                                //if(!(strcmp(aux2->s_type, "NULL") == 0)){
+                                if(aux2->s_type != NULL ){
                                     anote_ast(global_table, auxTable, aux2);
-                                //}
+                                }
                             }
 
                             aux2 = aux2->brother;
@@ -582,7 +582,7 @@ void anote_ast(sym_table *table_global, sym_table *table_local, Node *atual){
     int count_params, count_equals, count_all_equals, find_function;
     Node *aux1, *aux2, *aux3, *ant;
 
-    if(atual == NULL){
+    if(atual == NULL ){
         return;
     }
 
@@ -755,7 +755,7 @@ void anote_ast(sym_table *table_global, sym_table *table_local, Node *atual){
         find_function = 0;
         aux1 = (atual->child)->brother;
         while(aux1 != NULL){
-            if(aux1->s_type==NULL){
+            if(aux1 != NULL){
                 count_params++;
             }
             anote_ast(table_global, table_local, aux1);
@@ -767,10 +767,11 @@ void anote_ast(sym_table *table_global, sym_table *table_local, Node *atual){
             count_equals = 0;
             count_all_equals = 0;
             if(aux_vars->function == 1 && aux_vars->n_params == count_params && strcmp(aux_vars->name, atual->child->valor) == 0){
+                //printf("%s  %d  %d\n\n",aux_vars->name,aux_vars->function,count_params);
                 aux_params = aux_vars->paramTypes;
                 aux1 = (atual->child)->brother;
                 while(aux1 != NULL){
-                    if(strcmp(aux1->s_type, "NULL")){
+                    if(aux1->s_type != NULL){
                         if(strcmp(aux_params->type, aux1->anoted)==0){
                             count_all_equals++;
                             count_equals++;
@@ -816,7 +817,7 @@ void anote_ast(sym_table *table_global, sym_table *table_local, Node *atual){
             printf("Line %d, col %d: Reference to method %s(", atual->child->l, atual->child->column, atual->child->valor);     
             aux1 = (atual->child)->brother;
             while(aux1 != NULL){
-                if(aux1->s_type ==NULL){
+                if(aux1->s_type !=NULL){
                     printf("%s", aux1->anoted);
                     if(aux1->brother != NULL){
                         printf(",");
@@ -1114,9 +1115,19 @@ void anote_ast(sym_table *table_global, sym_table *table_local, Node *atual){
         atual->anoted = "boolean";
     }
     else if(strcmp(atual->s_type, "DecLit") == 0){
-      
+        char *aux2 = (char*)strdup(atual->valor);
+        char *pr; 
+        char pw[200]="";
 
-        long l = strtol(atual->valor,NULL,10);
+        pr = atual->valor;
+        int e=0;
+        for(int i=0; i < strlen(pr); i++) {
+            if(pr[i]!= '_'){
+                pw[e]= pr[i];
+                e++;
+            }
+        }
+        long l = strtol(pw,NULL,10);
         if(l>=0 && l<=INT_MAX){
             atual->anoted = "int";
         }
@@ -1203,6 +1214,18 @@ void printAnotedAST(Node *current, int n){
         if(current->valor != NULL){
             if(current->anoted != NULL && itsExpression(current->s_type) == 1){
                 printf("%s(%s) - %s",current->s_type, current->valor, current->anoted);
+            }
+            else if(current->n_params >=0 && itsExpression(current->s_type) == 1 && strcmp(current->parent->s_type,"Call")==0){ 
+                printf("%s(%s) - (",current->s_type, current->valor);
+                aux = current->params;
+                while(aux != NULL){
+                    printf("%s", aux->type);
+                    if(aux->next != NULL){
+                        printf(",");
+                    }
+                    aux = aux->next;
+                }
+                printf(")");
             }
             else{
                 printf("%s(%s)",current->s_type, current->valor);
