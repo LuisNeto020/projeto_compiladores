@@ -831,7 +831,7 @@ char *yytext;
     char *strlit;
     int str=0;
 	sym_table *global_table,*local_table;
-	int nErrorsSemantic;
+	int nErrors;
 	
 	
 	
@@ -2558,7 +2558,7 @@ int main(int argc,char* argv[]){
 		freeTree(root);
 		
 	}
-	//yylex_destroy();
+	
 	return 0;
 }
 
