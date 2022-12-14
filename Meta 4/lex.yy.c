@@ -816,7 +816,7 @@ char *yytext;
 	#include <stdbool.h>
     #include <stdarg.h>
 	#include "y.tab.h"
-	#include "symbol_table.h"
+	#include "semantics.h"
 	int yylex_destroy();
 	#define false 0
     #define true 1

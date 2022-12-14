@@ -10,7 +10,7 @@
 	#include <stdbool.h>
     #include <stdarg.h>
 	#include "y.tab.h"
-	#include "symbol_table.h"
+	#include "semantics.h"
 	int yylex_destroy();
 	#define false 0
     #define true 1
@@ -195,7 +195,8 @@ int main(int argc,char* argv[]){
 				print_table_global(global_table);
 				print_tables_local(local_table);
 				printAnotedAST(root,0);
-				clearTables(global_table, local_table);
+				clearGlobalTable(global_table);
+				clearLocalTables(local_table);
 			}
 			freeTree(root);
 		}
@@ -212,7 +213,8 @@ int main(int argc,char* argv[]){
 		yyparse();
 		if(flag_erro == 0){
 			create_semantic_table(root);
-			clearTables(global_table, local_table);
+			clearGlobalTable(global_table);
+			clearLocalTables(local_table);
 		}
 		freeTree(root);
 		

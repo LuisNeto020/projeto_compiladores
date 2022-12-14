@@ -7,7 +7,7 @@
 	#include <stdlib.h>
 	#include <string.h>
 	#include <stdarg.h>
-    #include "functions.h"
+    #include "AstTree.h"
     int yylex(void);
     void yyerror(const char *s);
     Node* root;

@@ -1,27 +1,509 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <limits.h>
-#include <float.h>
-#include <string.h>
-#include <math.h>
-#include "symbol_table.h"
 
+#include "semantics.h"
 
+void clearParams(param_list *param){
+    if(param == NULL){
+        return;
+    }
 
-//------------Symbol Table and AST---------------------------------
+    if(param->type != NULL){
+        free(param->type);
+        param->type = NULL;
+    }
+    if(param->id != NULL){
+        free(param->id);
+        param->id = NULL;
+    }
+
+    clearParams(param->next);
+
+    free(param);
+    param = NULL;
+}
+
+void clearVars(var_list *var){
+    if(var == NULL){
+        return;
+    }
+
+    if(var->type != NULL){
+        free(var->type);
+        var->type = NULL;
+    }
+    if(var->name != NULL){
+        free(var->name);
+        var->name = NULL;
+    }
+
+    clearParams(var->paramTypes);
+    clearVars(var->next);
+
+    free(var);
+    var = NULL;
+}
+
+void clearLocalTables(sym_table *local){
+    if(local == NULL){
+        return;
+    }
+
+    if(local->tableName != NULL){
+        free(local->tableName);
+        local->tableName = NULL;
+    }
+    if(local->tableType != NULL){
+        free(local->tableType);
+        local->tableType = NULL;
+    }
+
+    if(local->params != NULL){
+        clearParams(local->params->next);
+        if(local->params->type != NULL){
+            free(local->params->type);
+            local->params->type = NULL;
+        }
+        if(local->params->id != NULL){
+            free(local->params->id);
+            local->params->id = NULL;
+        }
+        free(local->params);
+        local->params = NULL;
+    }
+    if(local->vars != NULL){
+        clearVars(local->vars->next);
+        if(local->vars->type != NULL){
+            free(local->vars->type);
+            local->vars->type = NULL;
+        }
+        if(local->vars->name != NULL){
+            free(local->vars->name);
+            local->vars->name = NULL;
+        }
+        free(local->vars);
+        local->vars = NULL;
+    }
+
+    clearLocalTables(local->next);
+
+    free(local);
+    local = NULL;
+}
+
+void clearGlobalTable(sym_table *global){
+    if(global != NULL){
+        if(global->tableName != NULL){
+            free(global->tableName);
+            global->tableName = NULL;
+        }
+        if(global->tableType != NULL){
+            free(global->tableType);
+            global->tableType = NULL;
+        }
+
+        clearVars(global->vars);
+
+        free(global);
+        global = NULL;
+    }
+}
+
+void print_table_global(sym_table *atual){
+    var_list *aux_vars = atual->vars;
+    param_list *aux_params;
+
+    printf("===== %s %s Symbol Table =====\n", atual->tableType, atual->tableName);
+    while(aux_vars != NULL){
+        if(aux_vars->function == 1){
+            aux_params = aux_vars->paramTypes;
+            printf("%s\t(", aux_vars->name);
+            while(aux_params != NULL){
+                printf("%s", aux_params->type);
+                if(aux_params->next != NULL){
+                    printf(",");
+                }
+                aux_params = aux_params->next;
+            }
+            printf(")\t%s", aux_vars->type);
+        }
+        else{
+            printf("%s\t\t%s", aux_vars->name, aux_vars->type);
+        }
+
+        printf("\n");
+
+        aux_vars = aux_vars->next;
+    }
+    printf("\n");
+}
+
+void print_tables_local(sym_table *atual){
+    sym_table *aux = atual;
+    var_list *aux_vars;
+    param_list *aux_params;
+
+    while(aux != NULL){
+        aux_vars = aux->vars;
+        aux_params = aux->params;
+        if(aux_params!=NULL){
+            printf("===== %s %s(",  aux->tableType, aux->tableName);
+            while(aux_params != NULL){
+                printf("%s", aux_params->type);
+                if(aux_params->next !=NULL){
+                    printf(",");
+                }
+                aux_params = aux_params->next;
+            }
+            printf(") Symbol Table =====\n");
+        }
+        else{
+            printf("===== %s %s() Symbol Table =====\n", aux->tableType, aux->tableName);
+        }
+        while(aux_vars != NULL){
+            if(aux_vars->flag == 2){
+
+            }
+            else if(aux_vars->flag == 1){
+                printf("%s\t\t%s\t%s\n", aux_vars->name, aux_vars->type, "param");
+            }
+            else{
+                printf("%s\t\t%s\n", aux_vars->name, aux_vars->type);
+            }
+
+            aux_vars = aux_vars->next;
+        }
+
+        printf("\n");
+
+        aux = aux->next;
+    }
+}
+
+void add_local_table(sym_table *table, sym_table *new_table){
+    sym_table *aux = table;
+
+    if(aux == NULL){
+        table = new_table;
+        return;
+
+    }
+
+    while(aux->next != NULL){
+        aux = aux->next;
+    }
+
+    aux->next = new_table;
+}
+
+param_list *create_param(char *type, char *id){
+    param_list *new = (param_list*)malloc(sizeof(param_list));
+    new->type = (char*)strdup(type);
+    new->id = (char*)strdup(id);
+    new->next = NULL;
+    return new;
+}
+
+void add_param(param_list *paramList, param_list *new){
+    param_list *aux = paramList;
+
+    if(aux == NULL){
+        paramList = new;
+        return;
+    }
+
+    while(aux->next != NULL){
+        aux = aux->next;
+    }
+
+    aux->next = new;
+}
+
+var_list *create_var(char *name, char *type){
+    var_list *new = (var_list*)malloc(sizeof(var_list));
+    new->name = (char*)strdup(name);
+    new->type = (char*)strdup(type);
+    new->function = 0;
+    new->flag = 0;
+    new->n_params = 0;
+    new->paramTypes = NULL;
+    new->next = NULL;
+    return new;
+}
+
+void add_var(var_list *varList, var_list *new){
+    var_list *aux = varList;
+
+    if(aux == NULL){
+        varList = new;
+        return;
+    }
+
+    while(aux->next != NULL){
+        aux = aux->next;
+    }
+
+    aux->next = new;
+}
+
+sym_table* create_table(char *name, char *type){
+    sym_table* aux = (sym_table*)malloc(sizeof(sym_table));
+    aux->tableName = (char*)strdup(name);
+    aux->tableType = (char*)strdup(type);
+
+    aux->vars = NULL;
+    aux->params = NULL;
+    aux->next = NULL;
+    return aux;
+}
+
+char *change_Type(char *s_type){
+
+    if(strcmp(s_type, "Int") == 0){
+        s_type = "int";
+        return s_type;
+    }
+
+    if(strcmp(s_type, "Double") == 0){
+        s_type = "double";
+        return s_type;
+    }
+
+    if(strcmp(s_type, "Bool") == 0){
+        s_type = "boolean";
+        return s_type;
+    }
+
+    if(strcmp(s_type, "Void") == 0){
+        s_type = "void";
+        return s_type;
+    }
+
+    if(strcmp(s_type, "StringArray") == 0){
+        s_type = "String[]";
+        return s_type;
+    }
+
+    return s_type;
+}
+
+void create_semantic_table(Node* atual){
+    char *aux;
+    int error;
+    sym_table *auxTable;
+    var_list *aux_varsar, *aux_varsarLocal;
+    param_list *aux_paramsaram, *aux_paramsaramPrint;
+    Node *aux1, *aux2, *aux3, *aux4, *aux5, *aux6, *aux_params_program;
+    int count_params;
+
+    nErrors = 0;
+
+    if(atual == NULL){
+        return;
+    }
+
+    if(strcmp(atual->s_type, "Program")==0){ //Fazemos primeiro a tabela global toda
+        aux1 = atual->child; //ID
+
+        global_table = create_table(aux1->valor, "Class");
+        aux_params_program = aux1->brother; //FieldDecl ou MethodDecl
+        atual = aux1->brother; //FieldDecl ou MethodDecl
+
+        while(atual != NULL){ //Fazemos primeiro a tabela global toda
+            if(strcmp(atual->s_type, "FieldDecl")==0){
+                aux1 = atual->child; //TYPE
+                aux2 = aux1->brother; //ID
+                aux_varsar = create_var(aux2->valor, change_Type(aux1->s_type));
+                if(search_type_var(global_table, NULL, aux2->valor) != NULL){
+                    nErrors = 1;
+                    printf("Line %d, col %d: Symbol %s already defined\n", aux2->l, aux2->column, aux2->valor);
+                    clearVars(aux_varsar);
+                }
+                else{
+                    if(global_table->vars == NULL){
+                        global_table->vars = aux_varsar;
+                    }
+                    else{
+                        add_var(global_table->vars, aux_varsar);
+                    }
+                }
+            }
+            if(strcmp(atual->s_type, "MethodDecl")==0){
+                aux1 = atual->child; //MethodHeader
+                count_params = 0;
+                while(aux1 != NULL){
+                    if(strcmp(aux1->s_type, "MethodHeader") == 0){
+                        aux2 = aux1->child; //TYPE
+                        aux3 = aux2->brother; //ID
+
+                        aux_varsar = create_var(aux3->valor, change_Type(aux2->s_type)); //ADD TO GLOBAL
+
+                        aux4 = aux3->brother; //MethodParams
+                        aux5 = aux4->child; //ParamDecl ou nada
+                        while(aux5 != NULL){ //WHILE EXISTS ParamDecl's
+                            if(aux5->s_type!= NULL){
+                                count_params++;
+                                //add to aux_varsar to global_table
+                                aux_paramsaram = create_param(change_Type(aux5->child->s_type), (aux5->child)->brother->valor);
+                                
+                                aux = search_var_exists(aux_varsar->paramTypes, (aux5->child)->brother->valor);
+                                if(aux != NULL){
+                                    nErrors = 1;
+                                    printf("Line %d, col %d: Symbol %s already defined\n", (aux5->child)->brother->l, (aux5->child)->brother->column, (aux5->child)->brother->valor);
+                                }
+
+                                if(aux_varsar->paramTypes == NULL){
+                                    aux_varsar->paramTypes = aux_paramsaram;
+                                }
+                                else{
+                                    add_param(aux_varsar->paramTypes, aux_paramsaram);
+                                }
+                            }
+                            aux5 = aux5->brother;
+                        }
+
+                        aux_varsar->function = 1; //ITS FUNCTION
+                        aux_varsar->n_params = count_params;
+                        if(search_function_exists(global_table, aux_varsar->paramTypes, count_params, aux3->valor) == 1){
+                            nErrors = 1;
+                                printf("Line %d, col %d: Symbol %s(", aux3->l, aux3->column, aux3->valor);
+                            aux_paramsaramPrint = aux_varsar->paramTypes;
+                            while(aux_paramsaramPrint != NULL){
+                                printf("%s", aux_paramsaramPrint->type);
+                                if(aux_paramsaramPrint->next != NULL){
+                                    printf(",");
+                                }
+                                aux_paramsaramPrint = aux_paramsaramPrint->next;
+                            }
+                            printf(") already defined\n");
+                            aux3->to_anote = 0;
+                            clearVars(aux_varsar);
+                        }
+                        else{
+                            if(global_table->vars == NULL){
+                                global_table->vars = aux_varsar;
+                            }
+                            else{
+                                add_var(global_table->vars, aux_varsar);
+                            }
+                        }
+                    }
+
+                    aux1 = aux1->brother; //MethodHeader ou MethodBody
+                }
+            }
+
+            atual = atual->brother;
+        }
+
+        atual = aux_params_program;
+
+        while(atual != NULL){ //Depois fazemos as tabelas locais
+            if(strcmp(atual->s_type, "MethodDecl")==0){
+                error = 0;
+                aux1 = atual->child; //MethodHeader
+                while(aux1 != NULL){
+                    if(strcmp(aux1->s_type, "MethodHeader") == 0){
+                        aux2 = aux1->child; //TYPE
+                        aux3 = aux2->brother; //ID
+
+                        if(aux3->to_anote == 0){
+                            error = 1;
+                            break;
+                        }
+                        
+                        auxTable = create_table(aux3->valor, "Method");
+
+                        aux_varsar = create_var("return", change_Type(aux2->s_type)); //CREATE VAR TYPE
+                        aux_varsar->flag = 0;
+                        auxTable->vars = aux_varsar; //TO LOCAL TABLE
+
+                        aux4 = aux3->brother; //MethodParams
+                        aux5 = aux4->child; //ParamDecl ou nada
+                        while(aux5 != NULL){ //WHILE EXISTS ParamDecl's
+                            if(aux5->s_type != NULL){
+                                //add to aux_varsar to global_table
+                                aux_paramsaram = create_param(change_Type(aux5->child->s_type), (aux5->child)->brother->valor);
+                                
+                                aux = search_var_exists(aux_varsar->paramTypes, (aux5->child)->brother->valor);
+
+                                if(aux_varsar->paramTypes == NULL){
+                                    aux_varsar->paramTypes = aux_paramsaram;
+                                }
+                                else{
+                                    add_param(aux_varsar->paramTypes, aux_paramsaram);
+                                }
+
+                                //add to local_table
+                                aux6 = (aux5->child)->brother; //ID OF ParamDecl
+                                aux_varsarLocal = create_var(aux6->valor, change_Type(aux5->child->s_type));
+                                if(aux!=NULL){
+                                    aux_varsarLocal->flag = 2; //DONT PRINT, ITS REPEATED
+                                }
+                                else{
+                                    aux_varsarLocal->flag = 1; //ITS VAR
+                                }
+                                auxTable->params = aux_varsar->paramTypes;
+                                add_var(auxTable->vars, aux_varsarLocal);
+                            }
+                            aux5 = aux5->brother;
+                        }
+                    }
+                    if(strcmp(aux1->s_type, "MethodBody") == 0){
+                        aux2 = aux1->child;
+                        while(aux2 != NULL){
+                            if(strcmp(aux2->s_type, "VarDecl") == 0){
+                                aux3 = aux2->child;
+                                aux4 = aux3->brother;
+                                
+                                if(search_type_var(NULL, auxTable, aux4->valor) != NULL){
+                                    nErrors = 1;
+                                    printf("Line %d, col %d: Symbol %s already defined\n", aux4->l, aux4->column, aux4->valor);
+                                }
+                                else{
+                                    aux_varsar = create_var(aux4->valor, change_Type(aux3->s_type));
+                                    aux_varsar->flag = 0;
+                                    add_var(auxTable->vars, aux_varsar); //TO LOCAL TABLE
+                                }
+                            }
+                            else{
+                                if(aux2->s_type != NULL ){
+                                    anote_ast(global_table, auxTable, aux2);
+                                }
+                            }
+
+                            aux2 = aux2->brother;
+                        }
+                    }
+
+                    aux1 = aux1->brother; //MethodHeader ou MethodBody
+                }
+
+                if(error != 1){
+                    if(local_table == NULL){
+                        local_table = auxTable;
+                    }
+                    else{
+                        add_local_table(local_table, auxTable); //ADD TO LOCAL TABLE
+                    }  
+                }
+            }
+
+            atual = atual->brother;
+        }
+    }
+}
 
 char *search_var_exists(param_list *params, char *var_name){
     if(params == NULL){
         return NULL;
     }
 
-    param_list *auxP = params;
+    param_list *aux_params = params;
 
-    while(auxP != NULL){
-        if(strcmp(auxP->id, var_name) == 0){
-            return auxP->type;
+    while(aux_params != NULL){
+        if(strcmp(aux_params->id, var_name) == 0){
+            return aux_params->type;
         }
-        auxP = auxP->next;
+        aux_params = aux_params->next;
     }
 
     return NULL;
@@ -60,13 +542,13 @@ char *search_type_var_in_table(sym_table *table, char *var_name){
         return NULL;
     }
 
-    var_list *auxV = table->vars;
+    var_list *aux_vars = table->vars;
 
-    while(auxV != NULL){
-        if(strcmp(auxV->name, var_name) == 0 && auxV->function != 1){
-            return auxV->type;
+    while(aux_vars != NULL){
+        if(strcmp(aux_vars->name, var_name) == 0 && aux_vars->function != 1){
+            return aux_vars->type;
         }
-        auxV = auxV->next;
+        aux_vars = aux_vars->next;
     }
 
     return NULL;
@@ -91,13 +573,10 @@ void anote_ast(sym_table *table_global, sym_table *table_local, Node *atual){
     int count_params, count_equals, count_all_equals, find_function;
     Node *aux1, *aux2, *aux3, *ant;
 
-    if(atual == NULL ){
+    if(atual == NULL || atual->s_type == NULL ){
         return;
     }
 
-    if(atual->s_type == NULL){
-        return;
-    }
     else if(strcmp(atual->s_type, "Id") == 0){
         aux = search_type_var(table_global, table_local, atual->valor);
         if(aux != NULL){
@@ -147,7 +626,6 @@ void anote_ast(sym_table *table_global, sym_table *table_local, Node *atual){
         }
     }
     else if(strcmp(atual->s_type, "While") == 0){
-        //dentro do while() só pode estar um boolit, gt, eq, get, leq, lt, neq
         aux1 = atual->child;
         anote_ast(table_global, table_local, aux1);
         aux1 = aux1->brother;
@@ -165,26 +643,6 @@ void anote_ast(sym_table *table_global, sym_table *table_local, Node *atual){
         while(aux1 != NULL){
             anote_ast(table_global, table_local, aux1);
             aux1 = aux1->brother;
-        }
-    }
-    else if(strcmp(atual->s_type, "DoWhile") == 0){
-        aux1 = atual->child;
-        while(aux1 != NULL){
-            anote_ast(table_global, table_local, aux1);
-            if(strcmp(aux1->s_type, "NULL")){
-                ant = aux1;
-            }
-            aux1 = aux1->brother;
-        }
-
-        aux2 = ant;
-        if(strcmp(aux2->anoted, "boolean")){
-            nErrors = 1;
-            printf("Line %d, col %d: Incompatible type %s in do statement\n", aux2->l, aux2->column, aux2->anoted);
-            atual->anoted = "undef";
-        }
-        else{
-            atual->anoted = "boolean";
         }
     }
     else if(strcmp(atual->s_type, "Print") == 0){
@@ -222,6 +680,7 @@ void anote_ast(sym_table *table_global, sym_table *table_local, Node *atual){
                     printf("Line %d, col %d: Incompatible type %s in return statement\n",  aux2->l, aux2->column, aux2->anoted);
                 }
             }
+            
             else{
                 nErrors = 1;
                 printf("Line %d, col %d: Incompatible type %s in return statement\n",  aux2->l, aux2->column, aux2->anoted);
@@ -757,3 +1216,5 @@ void printAnotedAST(Node *current, int n){
     printAnotedAST(current->child, n+1);
     printAnotedAST(current->brother, n);
 }
+
+

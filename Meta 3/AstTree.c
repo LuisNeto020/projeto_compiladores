@@ -1,6 +1,6 @@
 
 
-#include "functions.h"
+#include "AstTree.h"
 
 token* createToken(char *value, int line, int column){
     token *new = (token*)malloc(sizeof(token));
